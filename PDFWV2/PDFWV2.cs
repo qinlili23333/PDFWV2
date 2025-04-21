@@ -1,6 +1,4 @@
-﻿using PDFWV2.PDFEngines;
-
-namespace PDFWV2
+﻿namespace PDFWV2
 {
     public class PDFWV2
     {

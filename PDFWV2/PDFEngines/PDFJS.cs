@@ -2,5 +2,11 @@
 {
     internal class PDFJS : PDFEngine
     {
+        public PDFJS(string ModuleFolder) : base(ModuleFolder)
+        {
+
+
+        }
     }
+
 }

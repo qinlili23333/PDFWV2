@@ -10,12 +10,20 @@ namespace PDFWV2
             Directory.CreateDirectory(Options.ModuleFolder);
         }
 
-        public async Task<PDFWV2> CreateInstance()
+        /// <summary>
+        /// Create a PDFWV2 instance
+        /// </summary>
+        /// <returns>Instance</returns>
+        public static async Task<PDFWV2> CreateInstance()
         {
             return await CreateInstance(new PDFWV2Options());
         }
 
-        public async Task<PDFWV2> CreateInstance(PDFWV2Options Options)
+        /// <summary>
+        /// Create a PDFWV2 instance with options
+        /// </summary>
+        /// <returns>Instance</returns>
+        public static async Task<PDFWV2> CreateInstance(PDFWV2Options Options)
         {
             if (PDFWV2InstanceManager.Instance != null)
             {
@@ -26,7 +34,13 @@ namespace PDFWV2
             return PDFWV2InstanceManager.Instance;
         }
 
-        public async Task<bool> Dispose(bool Force)
+        /// <summary>
+        /// Dispose the instance for current process.
+        /// </summary>
+        /// <param name="Force">Whether to force close all opened documents</param>
+        /// <returns>Async bool of whether dispose is success</returns>
+        /// <exception cref="NullReferenceException"></exception>
+        public static async Task<bool> Dispose(bool Force)
         {
             if (PDFWV2InstanceManager.Instance == null)
             {
@@ -37,6 +51,13 @@ namespace PDFWV2
                 //Still has active documents
                 return false;
             }
+            if (Force)
+            {
+                foreach (PDFWindow doc in PDFWV2InstanceManager.ActiveDocuments)
+                {
+                    doc.Close();
+                }
+            }
             var tcs = new TaskCompletionSource<bool>();
             PDFWV2InstanceManager.WebView2Environment.BrowserProcessExited += (o, e) =>
             {
@@ -46,6 +67,12 @@ namespace PDFWV2
             await tcs.Task;
             return true;
         }
+
+        /// <summary>
+        /// Initialize WebView2
+        /// </summary>
+        /// <param name="Path">Data folder</param>
+        /// <returns>Async void</returns>
         private async static Task InitAppWebView(string Path)
         {
             if (PDFWV2InstanceManager.WebView2Environment != null)

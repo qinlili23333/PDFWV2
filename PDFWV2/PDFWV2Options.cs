@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PDFWV2
+﻿namespace PDFWV2
 {
     public enum UpdateMode
     {
@@ -12,12 +6,16 @@ namespace PDFWV2
         Background,
         Foreground
     }
+    public enum Engines
+    {
+        PDFJS
+    }
     public class PDFWV2Options
     {
         //Module folder
         public string ModuleFolder { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\PDFWV2";
         //Target PDF Engine, currently 'pdfjs' is the only acceptable, more engines in future updates
-        public string Engine { get; set; } = "pdfjs";
+        public Engines Engine { get; set; } = Engines.PDFJS;
         //Enable F12 DebugTool
         public bool DebugTool { get; set; } = false;
         //Update mode

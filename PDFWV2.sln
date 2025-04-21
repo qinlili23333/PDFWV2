@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36015.10 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFWV2", "PDFWV2\PDFWV2.csproj", "{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LitePDF", "LitePDF\LitePDF.csproj", "{3C18EFE8-96D6-4DC7-A9ED-33C8E3FF4360}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1} = {3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C18EFE8-96D6-4DC7-A9ED-33C8E3FF4360}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C18EFE8-96D6-4DC7-A9ED-33C8E3FF4360}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C18EFE8-96D6-4DC7-A9ED-33C8E3FF4360}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C18EFE8-96D6-4DC7-A9ED-33C8E3FF4360}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E600CD6B-5252-46A5-88E0-98A46FB33EB7}
+	EndGlobalSection
+EndGlobal

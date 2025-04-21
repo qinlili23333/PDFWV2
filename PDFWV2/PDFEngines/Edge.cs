@@ -2,18 +2,17 @@
 
 namespace PDFWV2.PDFEngines
 {
-    internal class PDFJS : PDFEngine
+    internal class Edge : PDFEngine
     {
-        public PDFJS(string ModuleFolder) : base(ModuleFolder)
+        public Edge(string ModuleFolder) : base(ModuleFolder)
         {
 
-
         }
-
         /// <inheritdoc />
         public override UpdateResult Update()
         {
-            throw new NotImplementedException();
+            // Edge PDF engine should always up to date.
+            return UpdateResult.NoUpdate;
         }
 
         /// <inheritdoc />

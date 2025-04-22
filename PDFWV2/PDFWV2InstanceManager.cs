@@ -30,5 +30,11 @@ namespace PDFWV2
         /// Instance can only be destroyed with no active document.
         /// </summary>
         internal static List<PDFWindow> ActiveDocuments = [];
+        /// <summary>
+        /// Fake domain for local resource map.
+        /// This domain should never be available in real Internet.
+        /// Anything try to redirect outside of this domain will open in external browser.
+        /// </summary>
+        internal const string LocalDomain = "pdfwv2-local.qinlili.bid";
     }
 }

@@ -1,5 +1,4 @@
-﻿using PDFWV2.PDFEngines;
-using System.IO;
+﻿using System.IO;
 
 namespace PDFWV2
 {
@@ -51,7 +50,7 @@ namespace PDFWV2
                 throw new Exception("Not a PDF file.");
             }
         }
-  
+
         /// <summary>
         /// Open PDF stream.
         /// </summary>

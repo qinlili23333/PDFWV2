@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 
 namespace PDFWV2
 {
@@ -12,7 +13,7 @@ namespace PDFWV2
         internal PDFWindow(PDFEngineController Controller)
         {
             InitializeComponent();
-            EngineController = Controller; 
+            EngineController = Controller;
             Init();
         }
 
@@ -39,6 +40,20 @@ namespace PDFWV2
                 WebView.CoreWebView2.Settings.AreDevToolsEnabled = false;
                 WebView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
             }
+            WebView.CoreWebView2.NavigationStarting += (a, e) =>
+            {
+                if (e.Uri.StartsWith("http") && new Uri(e.Uri).DnsSafeHost != PDFWV2InstanceManager.LocalDomain)
+                {
+                    // Currently we just open in external browser
+                    // TODO: if the link is another PDF, open in new window instead
+                    e.Cancel = true;
+                    ProcessStartInfo startInfo = new(e.Uri)
+                    {
+                        UseShellExecute = true
+                    };
+                    Process.Start(startInfo);
+                }
+            };
             EngineController.OnWebViewReady(this);
         }
     }

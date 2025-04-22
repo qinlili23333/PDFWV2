@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace PDFWV2.PDFEngines
 {
@@ -11,8 +6,8 @@ namespace PDFWV2.PDFEngines
     {
         private Stream? DocumentStream;
         private string DocumentPath = string.Empty;
-        internal EdgeController(Stream Stream) 
-        { 
+        internal EdgeController(Stream Stream)
+        {
             DocumentStream = Stream;
         }
         internal EdgeController(string Path)

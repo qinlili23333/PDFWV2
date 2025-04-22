@@ -4,7 +4,6 @@
     {
         internal PDFEngineController()
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>

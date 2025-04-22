@@ -11,7 +11,6 @@ namespace PDFWV2
         /// <param name="ModuleFolder">Folder to store module files</param>
         public PDFEngine(string ModuleFolder)
         {
-            throw new NotImplementedException();
         }
 
         public enum UpdateResult

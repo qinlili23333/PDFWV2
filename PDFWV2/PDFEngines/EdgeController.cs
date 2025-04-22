@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Microsoft.Web.WebView2.Core;
+using System.IO;
 
 namespace PDFWV2.PDFEngines
 {
@@ -17,6 +18,25 @@ namespace PDFWV2.PDFEngines
 
         internal override void OnWebViewReady(PDFWindow Window)
         {
+            Window.WebView.CoreWebView2.Settings.HiddenPdfToolbarItems = CoreWebView2PdfToolbarItems.Save | CoreWebView2PdfToolbarItems.FullScreen;
+            Window.WebView.CoreWebView2.ContextMenuRequested += delegate (object? sender,
+                                    CoreWebView2ContextMenuRequestedEventArgs args)
+            {
+                IList<CoreWebView2ContextMenuItem> menuList = args.MenuItems;
+                for (int index = 0; index < menuList.Count;)
+                {
+                    string[] keywords = ["back", "forward", "reload", "saveAs", "other", "webCapture"];
+                    if (keywords.Contains(menuList[index].Name))
+                    {
+                        menuList.Remove(menuList[index]);
+                    }
+                    else
+                    {
+                        index++;
+                    }
+                }
+                return;
+            };
             if (DocumentPath != string.Empty)
             {
                 Window.WebView.CoreWebView2.Navigate(DocumentPath);

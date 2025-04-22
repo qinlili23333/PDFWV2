@@ -8,7 +8,7 @@
         Title="Select PDF File" SizeToContent="WidthAndHeight" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" ThemeMode="System">
     <Grid Height="200" Width="800">
         <TextBox x:Name="Path" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="File" VerticalAlignment="Top" Width="639"/>
-        <Button x:Name="Select" Content="Select" HorizontalAlignment="Left" Margin="654,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.012,-0.622" Width="134"/>
+        <Button x:Name="Select" Content="Select" HorizontalAlignment="Left" Margin="654,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.012,-0.622" Width="134" Click="Select_Click"/>
         <ComboBox HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="135" SelectedIndex="0">
             <Label Content="File"/>
             <Label Content="URL"/>

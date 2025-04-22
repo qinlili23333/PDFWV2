@@ -7,10 +7,13 @@ namespace PDFWV2
     /// </summary>
     public partial class PDFWindow : Window
     {
-        internal PDFWindow(PDFEngine Engine)
+        private PDFEngineController EngineController;
+
+        internal PDFWindow(PDFEngineController Controller)
         {
             InitializeComponent();
-            Init(Engine);
+            EngineController = Controller; 
+            Init();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -23,7 +26,7 @@ namespace PDFWV2
             PDFWV2.RemoveWindow(this);
         }
 
-        private async Task Init(PDFEngine Engine)
+        private async Task Init()
         {
             await WebView.EnsureCoreWebView2Async(PDFWV2InstanceManager.WebView2Environment);
             WebView.CoreWebView2.Settings.IsBuiltInErrorPageEnabled = false;
@@ -36,7 +39,7 @@ namespace PDFWV2
                 WebView.CoreWebView2.Settings.AreDevToolsEnabled = false;
                 WebView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
             }
-
+            EngineController.OnWebViewReady(this);
         }
     }
 }

@@ -16,21 +16,23 @@ namespace PDFWV2.PDFEngines
         }
 
         /// <inheritdoc />
-        public override PDFWindow ViewFile(string Path)
+        protected override PDFWindow ViewFileEngine(string Path)
         {
-            throw new NotImplementedException();
+            // There is no need to convert to stream for Edge PDF
+            // Just directly open it
+            return new PDFWindow(new EdgeController(new System.Uri(Path).AbsoluteUri));
         }
 
         /// <inheritdoc />
         public override PDFWindow ViewStream(Stream Stream)
         {
-            throw new NotImplementedException();
+            return new PDFWindow(new EdgeController(Stream));
         }
 
         /// <inheritdoc />
         public override PDFWindow ViewURL(string URL)
         {
-            throw new NotImplementedException();
+            return new PDFWindow(new EdgeController(URL));
         }
     }
 

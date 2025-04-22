@@ -10,6 +10,6 @@
         /// <summary>
         /// Call when PDFWindow successfully created WebView2Controller
         /// </summary>
-        internal abstract void OnWebViewReady();
+        internal abstract void OnWebViewReady(PDFWindow Window);
     }
 }

@@ -82,7 +82,7 @@ namespace PDFWV2
             }
             else
             {
-                var WebviewArgu = "--disable-features=msSmartScreenProtection --enable-features=msWebView2EnableDraggableRegions --in-process-gpu --disable-web-security --no-sandbox";
+                var WebviewArgu = "--disable-features=msSmartScreenProtection --enable-features=msWebView2EnableDraggableRegions --in-process-gpu --disable-web-security --no-sandbox --allow-file-access-from-files";
                 CoreWebView2EnvironmentOptions options = new()
                 {
                     AdditionalBrowserArguments = WebviewArgu

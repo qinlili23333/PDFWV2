@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using PDFWV2.PDFEngines;
+using System.IO;
 
 namespace PDFWV2
 {
@@ -29,11 +30,29 @@ namespace PDFWV2
         public abstract UpdateResult Update();
 
         /// <summary>
-        /// Open local PDF file with specific path.
+        /// Open local PDF file with specific path with current engine.
         /// </summary>
         /// <param name="Path">Path to PDF file</param>
-        public abstract PDFWindow ViewFile(string Path);
+        protected abstract PDFWindow ViewFileEngine(string Path);
 
+        /// <summary>
+        /// Open local PDF file with specific path.
+        /// Throws exception if it's not a PDF file.
+        /// </summary>
+        /// <param name="Path">Path to PDF file</param>
+        public PDFWindow ViewFile(string Path)
+        {
+            // Check whether it's PDF file first to avoid suspecious attacks
+            if (Utils.PDFHelper.IsPdf(Path))
+            {
+                return ViewFileEngine(Path);
+            }
+            else
+            {
+                throw new Exception("Not a PDF file.");
+            }
+        }
+  
         /// <summary>
         /// Open PDF stream.
         /// </summary>

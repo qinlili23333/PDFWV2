@@ -11,5 +11,15 @@ namespace PDFWV2
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            PDFWV2.AddWindow(this);
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            PDFWV2.RemoveWindow(this);
+        }
     }
 }

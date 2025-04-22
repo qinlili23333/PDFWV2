@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PDFWV2"
         xmlns:Wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf" x:Class="PDFWV2.PDFWindow"
         mc:Ignorable="d"
-        Title="PDFWindow" Height="450" Width="800">
+        Title="PDFWindow" Height="450" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
         <Wpf:WebView2 x:Name="WebView"/>
     </Grid>

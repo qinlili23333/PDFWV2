@@ -94,5 +94,23 @@ namespace PDFWV2
                 PDFWV2InstanceManager.AliveController = await PDFWV2InstanceManager.WebView2Environment.CreateCoreWebView2ControllerAsync(HWND_MESSAGE);
             }
         }
+
+        /// <summary>
+        /// Add document window to instance manager to record active documents
+        /// </summary>
+        /// <param name="window">PDFWindow object</param>
+        internal static void AddWindow(PDFWindow window)
+        {
+            PDFWV2InstanceManager.ActiveDocuments.Add(window);
+        }
+
+        /// <summary>
+        /// Remove document window from active documents list
+        /// </summary>
+        /// <param name="window">PDFWindow object</param>
+        internal static void RemoveWindow(PDFWindow window)
+        {
+            PDFWV2InstanceManager.ActiveDocuments.Remove(window);
+        }
     }
 }

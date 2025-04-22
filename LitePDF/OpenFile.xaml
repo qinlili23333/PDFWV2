@@ -1,0 +1,22 @@
+﻿<Window x:Class="LitePDF.OpenFile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LitePDF"
+        mc:Ignorable="d"
+        Title="Select PDF File" SizeToContent="WidthAndHeight" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" ThemeMode="System">
+    <Grid Height="200" Width="800">
+        <TextBox x:Name="Path" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="File" VerticalAlignment="Top" Width="639"/>
+        <Button x:Name="Select" Content="Select" HorizontalAlignment="Left" Margin="654,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.012,-0.622" Width="134"/>
+        <ComboBox HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="135" SelectedIndex="0">
+            <Label Content="File"/>
+            <Label Content="URL"/>
+        </ComboBox>
+        <ComboBox HorizontalAlignment="Left" Margin="150,46,0,0" VerticalAlignment="Top" Width="135" SelectedIndex="0">
+            <Label Content="EdgePDF"/>
+            <Label Content="PDF.js"/>
+        </ComboBox>
+        <Button Content="Open" HorizontalAlignment="Center" Margin="0,90,0,0" VerticalAlignment="Top" Height="100" Width="780"/>
+    </Grid>
+</Window>

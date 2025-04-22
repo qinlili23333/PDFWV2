@@ -17,6 +17,6 @@
             <Label Content="EdgePDF"/>
             <Label Content="PDF.js"/>
         </ComboBox>
-        <Button Content="Open" HorizontalAlignment="Center" Margin="0,90,0,0" VerticalAlignment="Top" Height="100" Width="780"/>
+        <Button x:Name="OpenButton" Content="Open" HorizontalAlignment="Center" Margin="0,90,0,0" VerticalAlignment="Top" Height="100" Width="780" Click="OpenButton_Click"/>
     </Grid>
 </Window>

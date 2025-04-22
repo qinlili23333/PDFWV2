@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using PDFWV2;
 
 namespace LitePDF
 {
@@ -26,6 +27,21 @@ namespace LitePDF
             {
                 Path.Text = dialog.FileName;
             }
+        }
+
+        private async void OpenButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Put options for debug here currently
+            //TODO: make it configurable through GUI
+            PDFWV2Options Options = new PDFWV2Options { 
+                DebugTool = true, 
+                Engine=Engines.EDGE,
+                NetworkRequestIsolation=false
+            };
+            PDFWV2Instance PDF = await PDFWV2Instance.CreateInstance(Options);
+            PDFEngine Engine = await PDF.CreateEngine();
+            Engine.ViewFile(Path.Text).Show();
+            Close();
         }
     }
 }

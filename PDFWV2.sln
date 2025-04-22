@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36015.10 d17.14
+VisualStudioVersion = 17.14.36015.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFWV2", "PDFWV2\PDFWV2.csproj", "{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}"
 EndProject
@@ -13,17 +13,27 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}.Debug|x64.ActiveCfg = Debug|x64
+		{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}.Debug|x64.Build.0 = Debug|x64
 		{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}.Release|x64.ActiveCfg = Release|x64
+		{3604CFD3-921B-4FCF-9B17-E8A0A0957AF1}.Release|x64.Build.0 = Release|x64
 		{3C18EFE8-96D6-4DC7-A9ED-33C8E3FF4360}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C18EFE8-96D6-4DC7-A9ED-33C8E3FF4360}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C18EFE8-96D6-4DC7-A9ED-33C8E3FF4360}.Debug|x64.ActiveCfg = Debug|x64
+		{3C18EFE8-96D6-4DC7-A9ED-33C8E3FF4360}.Debug|x64.Build.0 = Debug|x64
 		{3C18EFE8-96D6-4DC7-A9ED-33C8E3FF4360}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C18EFE8-96D6-4DC7-A9ED-33C8E3FF4360}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C18EFE8-96D6-4DC7-A9ED-33C8E3FF4360}.Release|x64.ActiveCfg = Release|x64
+		{3C18EFE8-96D6-4DC7-A9ED-33C8E3FF4360}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -34,6 +34,12 @@ namespace PDFWV2.PDFEngines
         {
             return new PDFWindow(new EdgeController(URL));
         }
+
+        /// <inheritdoc />
+        public override bool IsReady()
+        {
+            return true;
+        }
     }
 
 }

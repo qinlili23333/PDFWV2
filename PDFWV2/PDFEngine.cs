@@ -28,6 +28,13 @@ namespace PDFWV2
         public abstract UpdateResult Update();
 
         /// <summary>
+        /// Whether this engine is ready to use.
+        /// Ready means the engine is installed, and finished update if foreground update check is enabled.
+        /// </summary>
+        /// <returns>Whether is ready in bool</returns>
+        public abstract bool IsReady();
+
+        /// <summary>
         /// Open local PDF file with specific path with current engine.
         /// </summary>
         /// <param name="Path">Path to PDF file</param>

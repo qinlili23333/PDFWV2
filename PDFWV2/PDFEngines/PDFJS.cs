@@ -33,6 +33,11 @@ namespace PDFWV2.PDFEngines
         {
             throw new NotImplementedException();
         }
+
+        public override bool IsReady()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

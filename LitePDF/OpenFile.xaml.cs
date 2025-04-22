@@ -34,14 +34,22 @@ namespace LitePDF
             //Put options for debug here currently
             //TODO: make it configurable through GUI
             PDFWV2Options Options = new PDFWV2Options { 
-                DebugTool = true, 
+                DebugTool = false, 
                 Engine=Engines.EDGE,
                 NetworkRequestIsolation=false
             };
             PDFWV2Instance PDF = await PDFWV2Instance.CreateInstance(Options);
             PDFEngine Engine = await PDF.CreateEngine();
-            Engine.ViewFile(Path.Text).Show();
-            Close();
+            if (Type.SelectedIndex == 0)
+            {
+                Engine.ViewFile(Path.Text).Show();
+            }
+            else
+            {
+                Engine.ViewURL(Path.Text).Show();
+
+            }
+                Close();
         }
     }
 }

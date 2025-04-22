@@ -99,5 +99,15 @@ namespace PDFWV2.Utils
             }
             return null;
         }
+
+        /// <summary>
+        /// Get download link from file object
+        /// </summary>
+        /// <param name="File">JsonElement object from GetFileFromRelease</param>
+        /// <returns>Link string</returns>
+        public static string GetLinkFromFile(JsonElement File)
+        {
+            return File.GetProperty("browser_download_url").GetString() ?? string.Empty;
+        }
     }
 }

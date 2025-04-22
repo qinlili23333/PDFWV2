@@ -7,6 +7,7 @@ namespace PDFWV2
     {
         internal PDFWV2(PDFWV2Options Options)
         {
+            PDFWV2InstanceManager.Options = Options;
             Directory.CreateDirectory(Options.ModuleFolder);
         }
 

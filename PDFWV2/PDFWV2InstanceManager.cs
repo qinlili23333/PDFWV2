@@ -1,4 +1,5 @@
 ﻿using Microsoft.Web.WebView2.Core;
+using System.Data;
 
 namespace PDFWV2
 {
@@ -12,6 +13,10 @@ namespace PDFWV2
         /// PDFWV2 instance in process.
         /// </summary>
         internal static PDFWV2? Instance;
+        /// <summary>
+        /// Options for instance.
+        /// </summary>
+        internal static PDFWV2Options? Options;
         /// <summary>
         /// WebView2 environment for whole process.
         /// </summary>

@@ -1,13 +1,17 @@
 ﻿using Microsoft.Web.WebView2.Core;
+using System.Diagnostics;
 using System.IO;
 
 namespace PDFWV2
 {
-    public class PDFWV2
+    public class PDFWV2Instance
     {
-        internal PDFWV2(PDFWV2Options Options)
+        Process? CurrentProcess;
+
+        internal PDFWV2Instance(PDFWV2Options Options)
         {
             PDFWV2InstanceManager.Options = Options;
+            CurrentProcess = Process.GetCurrentProcess();
             Directory.CreateDirectory(Options.ModuleFolder);
         }
 
@@ -15,7 +19,7 @@ namespace PDFWV2
         /// Create a PDFWV2 instance
         /// </summary>
         /// <returns>Instance</returns>
-        public static async Task<PDFWV2> CreateInstance()
+        public static async Task<PDFWV2Instance> CreateInstance()
         {
             return await CreateInstance(new PDFWV2Options());
         }
@@ -24,13 +28,13 @@ namespace PDFWV2
         /// Create a PDFWV2 instance with options
         /// </summary>
         /// <returns>Instance</returns>
-        public static async Task<PDFWV2> CreateInstance(PDFWV2Options Options)
+        public static async Task<PDFWV2Instance> CreateInstance(PDFWV2Options Options)
         {
             if (PDFWV2InstanceManager.Instance != null)
             {
                 throw new Exception("Double Initialization! You can only initialize one instance in one process.");
             }
-            PDFWV2InstanceManager.Instance = new PDFWV2(Options);
+            PDFWV2InstanceManager.Instance = new PDFWV2Instance(Options);
             await InitAppWebView(Options.ModuleFolder);
             return PDFWV2InstanceManager.Instance;
         }
@@ -67,6 +71,18 @@ namespace PDFWV2
             PDFWV2InstanceManager.AliveController.Close();
             await tcs.Task;
             return true;
+        }
+
+        public async Task<PDFEngine> CreateEngine()
+        {
+            switch (PDFWV2InstanceManager.Options.Engine)
+            {
+                case Engines.EDGE:
+                default:
+                    return new PDFEngines.Edge();
+                case Engines.PDFJS:
+                    return new PDFEngines.PDFJS(PDFWV2InstanceManager.Options.ModuleFolder);
+            }
         }
 
         /// <summary>

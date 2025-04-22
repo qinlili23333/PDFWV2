@@ -18,12 +18,12 @@ namespace PDFWV2
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            PDFWV2.AddWindow(this);
+            PDFWV2Instance.AddWindow(this);
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            PDFWV2.RemoveWindow(this);
+            PDFWV2Instance.RemoveWindow(this);
         }
 
         private async Task Init()

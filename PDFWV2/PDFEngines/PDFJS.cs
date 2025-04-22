@@ -17,7 +17,7 @@ namespace PDFWV2.PDFEngines
         }
 
         /// <inheritdoc />
-        public override PDFWindow ViewFileEngine(string Path)
+        protected override PDFWindow ViewFileEngine(string Path)
         {
             throw new NotImplementedException();
         }

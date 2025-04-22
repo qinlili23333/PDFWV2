@@ -4,7 +4,7 @@ namespace PDFWV2.PDFEngines
 {
     internal class Edge : PDFEngine
     {
-        public Edge(string ModuleFolder) : base(ModuleFolder)
+        public Edge() : base(string.Empty)
         {
 
         }

@@ -3,7 +3,7 @@ using System.IO;
 
 namespace PDFWV2
 {
-    internal abstract class PDFEngine
+    public abstract class PDFEngine
     {
         /// <summary>
         /// Initialize a PDF Engine.

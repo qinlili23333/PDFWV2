@@ -11,7 +11,7 @@ namespace PDFWV2
         /// <summary>
         /// PDFWV2 instance in process.
         /// </summary>
-        internal static PDFWV2? Instance;
+        internal static PDFWV2Instance? Instance;
         /// <summary>
         /// Options for instance.
         /// </summary>

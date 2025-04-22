@@ -1,4 +1,5 @@
 ﻿using Microsoft.Web.WebView2.Core;
+using System;
 using System.IO;
 
 namespace PDFWV2.PDFEngines
@@ -34,6 +35,14 @@ namespace PDFWV2.PDFEngines
                     {
                         index++;
                     }
+                }
+                // Print menu when right click document area does nothing
+                // I have reported to Microsoft
+                // https://github.com/MicrosoftEdge/WebView2Feedback/issues/5213
+                // In short time, let's do some workaround, I mean just disable it
+                if (menuList.Count == 1 && menuList[0].Name == "print")
+                {
+                    menuList.Clear();
                 }
                 return;
             };

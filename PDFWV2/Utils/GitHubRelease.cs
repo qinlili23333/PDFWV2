@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace PDFWV2.Utils
 {
@@ -14,8 +15,9 @@ namespace PDFWV2.Utils
     {
         public bool Success { get; set; } = false;
         public string ErrorMsg { get; set; } = string.Empty;
-        public JsonElement? ReleaseInfo { get; set; }
+        public JsonElement ReleaseInfo { get; set; }
     }
+
 
     internal static class GitHubAPI
     {
@@ -65,10 +67,37 @@ namespace PDFWV2.Utils
         {
             if (Release.Success)
             {
-                long? id = Release.ReleaseInfo?.GetProperty("id").GetInt64();
-                return id ?? 0;
+                return Release.ReleaseInfo.GetProperty("id").GetInt64();
             }
             return 0;
+        }
+
+        /// <summary>
+        /// Get a target file from release based on file name regex.
+        /// </summary>
+        /// <param name="Release">GitHubRelease object</param>
+        /// <param name="RegEx">RegEx to filter file name, optional</param>
+        /// <returns>A JsonElement of the target file, or null if no file found</returns>
+        public static JsonElement? GetFileFromRelease(GitHubRelease Release, string RegEx = "(.*?)")
+        {
+            if (Release.Success)
+            {
+                var assets = Release.ReleaseInfo.GetProperty("assets").EnumerateArray();
+                //GitHub returns empty assets array if no file, so should not need to catch KeyNotFoundException
+                //So just detect length
+                if (assets.Count<JsonElement>() == 0)
+                {
+                    return null;
+                }
+                foreach (JsonElement asset in assets)
+                {
+                    if (Regex.Match(asset.GetProperty("name").GetString() ?? "", RegEx).Success)
+                    {
+                        return asset;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

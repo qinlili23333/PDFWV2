@@ -19,4 +19,11 @@
         </ComboBox>
         <Button x:Name="OpenButton" Content="Open" HorizontalAlignment="Center" Margin="0,90,0,0" VerticalAlignment="Top" Height="100" Width="780" Click="OpenButton_Click"/>
     </Grid>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
 </Window>

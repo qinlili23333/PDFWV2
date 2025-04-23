@@ -35,6 +35,7 @@ namespace PDFWV2
             WebView.CoreWebView2.Settings.IsZoomControlEnabled = false;
             WebView.CoreWebView2.Settings.IsPinchZoomEnabled = false;
             WebView.CoreWebView2.Settings.IsStatusBarEnabled = false;
+            WebView.CoreWebView2.Settings.UserAgent += " qinlili23333-PDFWV2/" + typeof(PDFWV2Instance).Assembly.GetName().Version?.ToString();
             if (PDFWV2InstanceManager.Options?.DebugTool == false)
             {
                 WebView.CoreWebView2.Settings.AreDevToolsEnabled = false;

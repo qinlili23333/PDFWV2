@@ -1,20 +1,53 @@
 ﻿namespace PDFWV2
 {
+    /// <summary>
+    /// When should PDFWV2 check update
+    /// </summary>
     public enum UpdateMode
     {
+        /// <summary>
+        /// PDFWV2 never checks update, only download engine if not installed
+        /// </summary>
         Never,
+        /// <summary>
+        /// PDFWV2 checks update everyday in the background after first document opened, and schedule update at next time engine initialized
+        /// </summary>
         Background,
+        /// <summary>
+        /// PDFWV2 checks update and installs it everyday before first document opened
+        /// </summary>
         Foreground
     }
+    /// <summary>
+    /// Which PDF engine should PDFWV2 use
+    /// </summary>
     public enum Engines
     {
+        /// <summary>
+        /// Microsoft Edge engine, no download required
+        /// </summary>
         EDGE,
+        /// <summary>
+        /// Mozilla PDF.js, needs download for first time
+        /// </summary>
         PDFJS
     }
+    /// <summary>
+    /// How many security harden techniques should be applied
+    /// </summary>
     public enum SecurityLevel
     {
+        /// <summary>
+        /// No security harden, best performance, should only use when you only want to show non-userselected local document
+        /// </summary>
         None,
+        /// <summary>
+        /// Basic security harden, verify local PDF format, prevent path travesal
+        /// </summary>
         Basic,
+        /// <summary>
+        /// Enhanced security harden, includes all basic harden plus WebView2 enhanced anti-debugging
+        /// </summary>
         Enhanced
     }
     public class PDFWV2Options
@@ -46,6 +79,7 @@
         /// This enhances security to prevent remote execution from WebView2, but may impact performance.
         /// Enabled by default and not recommend to disable.
         /// If FallbackToEdge is enabled and fallback happens, this option will automatically enable to prevent remote execution.
+        /// Once enabled, you only need to allow your application on firewall.
         /// </summary>
         public bool NetworkRequestIsolation { get; set; } = true;
         /// <summary>

@@ -36,6 +36,7 @@ namespace PDFWV2.Utils
                     Network.SetHttpHeader(client, "application/vnd.github+json");
                     var jsonStream = await client.GetStreamAsync($"https://api.github.com/repos/{Repo.Owner}/{Repo.Repo}/releases?per_page=1");
                     var jsonDoc = await JsonDocument.ParseAsync(jsonStream);
+                    jsonStream.Close();
                     return new GitHubRelease
                     {
                         Success = true,

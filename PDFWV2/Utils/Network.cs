@@ -25,7 +25,7 @@ namespace PDFWV2.Utils
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue(mimetype));
             client.DefaultRequestHeaders.UserAgent.Clear();
-            client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("qinlili23333:PDFWV2"));
+            client.DefaultRequestHeaders.UserAgent.ParseAdd("qinlili23333-PDFWV2/" + typeof(PDFWV2Instance).Assembly.GetName().Version?.ToString());
         }
 
         /// <summary>

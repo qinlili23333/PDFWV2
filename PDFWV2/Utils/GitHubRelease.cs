@@ -33,11 +33,7 @@ namespace PDFWV2.Utils
             {
                 using HttpClient client = new();
                 {
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/vnd.github+json"));
-                    client.DefaultRequestHeaders.UserAgent.Clear();
-                    client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("qinlili23333:PDFWV2"));
+                    Network.SetHttpHeader(client, "application/vnd.github+json");
                     var jsonStream = await client.GetStreamAsync($"https://api.github.com/repos/{Repo.Owner}/{Repo.Repo}/releases?per_page=1");
                     var jsonDoc = await JsonDocument.ParseAsync(jsonStream);
                     return new GitHubRelease

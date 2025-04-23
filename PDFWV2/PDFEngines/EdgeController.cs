@@ -7,13 +7,50 @@ namespace PDFWV2.PDFEngines
     {
         private Stream? DocumentStream;
         private string DocumentPath = string.Empty;
+        private bool PreloadMode = false;
+
+        /// <summary>
+        /// Create with ready stream
+        /// </summary>
+        /// <param name="Stream">Stream, prefer MemoryStream</param>
         internal EdgeController(Stream Stream)
         {
             DocumentStream = Stream;
         }
+
+        /// <summary>
+        /// Create with URL path, can be local file URI or online link URL
+        /// </summary>
+        /// <param name="Path"></param>
         internal EdgeController(string Path)
         {
             DocumentPath = Path;
+        }
+
+        /// <summary>
+        /// Create empty controller and fulfill content later
+        /// </summary>
+        internal EdgeController()
+        {
+            PreloadMode = true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Stream"></param>
+        internal void FulfillStream(Stream Stream)
+        {
+            if (PreloadMode)
+            {
+                DocumentStream = Stream;
+                PreloadMode = false;
+                //TODO: load stream
+            }
+            else
+            {
+                throw new InvalidOperationException("You cannot fulfill stream to a loaded controller!");
+            }
         }
 
         internal override void OnWebViewReady(PDFWindow Window)

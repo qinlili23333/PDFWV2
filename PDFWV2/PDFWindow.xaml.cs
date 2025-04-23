@@ -43,7 +43,7 @@ namespace PDFWV2
             }
             WebView.CoreWebView2.NavigationStarting += (a, e) =>
             {
-                if (PDFWV2InstanceManager.Options?.NetworkRequestIsolation ?? false && e.Uri.StartsWith("http") && new Uri(e.Uri).DnsSafeHost != PDFWV2InstanceManager.LocalDomain)
+                if ((PDFWV2InstanceManager.Options?.NetworkRequestIsolation ?? false) && e.Uri.StartsWith("http") && !(new Uri(e.Uri).DnsSafeHost == PDFWV2InstanceManager.LocalDomain || e.Uri.StartsWith("data")))
                 {
                     // Currently we just open in external browser
                     // TODO: if the link is another PDF, open in new window instead

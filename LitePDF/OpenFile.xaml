@@ -18,6 +18,7 @@
             <Label Content="PDF.js"/>
         </ComboBox>
         <Button x:Name="OpenButton" Content="Open" HorizontalAlignment="Center" Margin="0,90,0,0" VerticalAlignment="Top" Height="100" Width="780" Click="OpenButton_Click"/>
+        <CheckBox x:Name="NetworkRequestIsolation" Content="NetworkRequestIsolation" Margin="290,48,0,0" VerticalAlignment="Top" Width="250"/>
     </Grid>
     <Window.Resources>
         <ResourceDictionary>

@@ -46,7 +46,7 @@ namespace LitePDF
             {
                 DebugTool = false,
                 Engine = Engines,
-                NetworkRequestIsolation = false
+                NetworkRequestIsolation = NetworkRequestIsolation.IsChecked ?? false
             };
             PDFWV2Instance PDF = await PDFWV2Instance.CreateInstance(Options);
             PDFEngine Engine = await PDF.CreateEngine();

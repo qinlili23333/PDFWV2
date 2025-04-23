@@ -8,6 +8,10 @@ namespace LitePDF
     /// </summary>
     public partial class OpenFile : Window
     {
+        PDFWV2Instance PDF;
+
+        PDFEngine Engine;
+
         public OpenFile()
         {
             InitializeComponent();
@@ -45,11 +49,13 @@ namespace LitePDF
             PDFWV2Options Options = new()
             {
                 DebugTool = DevTool.IsChecked ?? false,
-                Engine = Engines,
+                DefaultEngine = Engines,
                 NetworkRequestIsolation = NetworkRequestIsolation.IsChecked ?? false
             };
-            PDFWV2Instance PDF = await PDFWV2Instance.CreateInstance(Options);
-            PDFEngine Engine = await PDF.CreateEngine();
+            PDF = await PDFWV2Instance.GetInstance(Options);
+            DevTool.IsEnabled = false;
+            NetworkRequestIsolation.IsEnabled = false;
+            Engine = await PDF.CreateEngine(Engines);
             if (Type.SelectedIndex == 0)
             {
                 Engine.ViewFile(Path.Text).Show();
@@ -59,7 +65,7 @@ namespace LitePDF
                 Engine.ViewURL(Path.Text).Show();
 
             }
-                Close();
+
         }
     }
 }

@@ -12,4 +12,19 @@
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3179.45" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="WebRes\WebRes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WebRes.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="WebRes\WebRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>WebRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

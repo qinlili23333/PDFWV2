@@ -82,6 +82,10 @@ namespace PDFWV2.PDFEngines
                 }
                 return;
             };
+            if (PreloadMode)
+            {
+                Window.WebView.CoreWebView2.NavigateToString(WebRes.WebRes.Loading);
+            }
             if (DocumentPath != string.Empty)
             {
                 Window.WebView.CoreWebView2.Navigate(DocumentPath);

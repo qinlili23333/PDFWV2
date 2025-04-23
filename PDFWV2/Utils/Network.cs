@@ -38,7 +38,11 @@ namespace PDFWV2.Utils
             using HttpClient client = new();
             {
                 SetHttpHeader(client, "application/pdf");
-                throw new NotImplementedException();
+                var fileStream = await client.GetStreamAsync(URL);
+                MemoryStream inMemoryCopy = new();
+                fileStream.CopyTo(inMemoryCopy);
+                fileStream.Close();
+                return inMemoryCopy;
             }
         }
     }

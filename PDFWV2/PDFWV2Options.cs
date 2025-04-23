@@ -11,6 +11,12 @@
         EDGE,
         PDFJS
     }
+    public enum SecurityLevel
+    {
+        None,
+        Basic,
+        Enhanced
+    }
     public class PDFWV2Options
     {
         /// <summary>
@@ -42,5 +48,11 @@
         /// If FallbackToEdge is enabled and fallback happens, this option will automatically enable to prevent remote execution.
         /// </summary>
         public bool NetworkRequestIsolation { get; set; } = true;
+        /// <summary>
+        /// Security harden level, which indicates how many harden techniques are used.
+        /// Higher level will apply more mitigation techniques, but may degrade performance.
+        /// Default level is Basic.
+        /// </summary>
+        public SecurityLevel SecurityHardenLevel { get; set; } = SecurityLevel.Basic;
     }
 }

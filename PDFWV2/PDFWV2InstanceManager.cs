@@ -28,7 +28,7 @@ namespace PDFWV2
         /// <summary>
         /// Stores created engines
         /// </summary>
-        internal static Dictionary<Engines,PDFEngine> ActiveEngines = [];
+        internal static Dictionary<Engines, PDFEngine> ActiveEngines = [];
         /// <summary>
         /// A list of active documents.
         /// Instance can only be destroyed with no active document.

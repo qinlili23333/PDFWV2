@@ -47,7 +47,7 @@ namespace PDFWV2
         /// <returns>Instance</returns>
         public static async Task<PDFWV2Instance> GetInstance(PDFWV2Options? Options)
         {
-            if(PDFWV2InstanceManager.Instance == null)
+            if (PDFWV2InstanceManager.Instance == null)
             {
                 if (Options == null)
                 {
@@ -126,7 +126,7 @@ namespace PDFWV2
                 Engines.EDGE => new PDFEngines.Edge(),
                 _ => new PDFEngines.Edge(),
             };
-            PDFWV2InstanceManager.ActiveEngines.Add(Engine,PDFEngine);
+            PDFWV2InstanceManager.ActiveEngines.Add(Engine, PDFEngine);
             return PDFEngine;
         }
 

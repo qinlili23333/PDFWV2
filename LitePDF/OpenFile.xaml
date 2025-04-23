@@ -13,7 +13,7 @@
             <Label Content="File"/>
             <Label Content="URL"/>
         </ComboBox>
-        <ComboBox x:Name="Engine" HorizontalAlignment="Left" Margin="150,46,0,0" VerticalAlignment="Top" Width="135" SelectedIndex="0">
+        <ComboBox x:Name="EngineSelect" HorizontalAlignment="Left" Margin="150,46,0,0" VerticalAlignment="Top" Width="135" SelectedIndex="0">
             <Label Content="EdgePDF"/>
             <Label Content="PDF.js"/>
         </ComboBox>

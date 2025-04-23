@@ -33,10 +33,20 @@ namespace LitePDF
         {
             //Put options for debug here currently
             //TODO: make it configurable through GUI
-            PDFWV2Options Options = new PDFWV2Options { 
-                DebugTool = false, 
-                Engine=Engines.EDGE,
-                NetworkRequestIsolation=false
+            Engines Engines;
+            if(EngineSelect.SelectedIndex==0)
+            {
+                Engines = Engines.EDGE;
+            }
+            else
+            {
+                Engines = Engines.PDFJS;
+            }
+            PDFWV2Options Options = new()
+            {
+                DebugTool = false,
+                Engine = Engines,
+                NetworkRequestIsolation = false
             };
             PDFWV2Instance PDF = await PDFWV2Instance.CreateInstance(Options);
             PDFEngine Engine = await PDF.CreateEngine();

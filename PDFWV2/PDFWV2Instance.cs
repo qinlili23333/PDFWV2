@@ -32,11 +32,36 @@ namespace PDFWV2
         /// <summary>
         /// Create a PDFWV2 instance with options
         /// </summary>
+        /// <param name="Options">PDFWV2Options object</param>
         /// <returns>Instance</returns>
         public static async Task<PDFWV2Instance> CreateInstance(PDFWV2Options Options)
         {
             PDFWV2InstanceManager.Options = Options;
             return await CreateInstance();
+        }
+
+        /// <summary>
+        /// Get PDFWV2 instance, if an instance already exists, return it, otherwise create a new instance, with options if options is not null
+        /// </summary>
+        /// <param name="Options">PDFWV2Options object, or null to use default options</param>
+        /// <returns>Instance</returns>
+        public static async Task<PDFWV2Instance> GetInstance(PDFWV2Options? Options)
+        {
+            if(PDFWV2InstanceManager.Instance == null)
+            {
+                if (Options == null)
+                {
+                    return await CreateInstance();
+                }
+                else
+                {
+                    return await CreateInstance(Options);
+                }
+            }
+            else
+            {
+                return PDFWV2InstanceManager.Instance;
+            }
         }
 
         /// <summary>

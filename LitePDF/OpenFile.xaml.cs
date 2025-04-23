@@ -44,7 +44,7 @@ namespace LitePDF
             }
             PDFWV2Options Options = new()
             {
-                DebugTool = false,
+                DebugTool = DevTool.IsChecked ?? false,
                 Engine = Engines,
                 NetworkRequestIsolation = NetworkRequestIsolation.IsChecked ?? false
             };

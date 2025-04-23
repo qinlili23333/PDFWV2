@@ -8,11 +8,14 @@ namespace PDFWV2
     {
         Process? CurrentProcess;
 
-        internal PDFWV2Instance(PDFWV2Options Options)
+        internal PDFWV2Instance()
         {
-            PDFWV2InstanceManager.Options = Options;
+            if (PDFWV2InstanceManager.Instance != null)
+            {
+                throw new Exception("Double Initialization! You can only initialize one instance in one process.");
+            }
             CurrentProcess = Process.GetCurrentProcess();
-            Directory.CreateDirectory(Options.ModuleFolder);
+            Directory.CreateDirectory(PDFWV2InstanceManager.Options.ModuleFolder);
         }
 
         /// <summary>
@@ -21,7 +24,9 @@ namespace PDFWV2
         /// <returns>Instance</returns>
         public static async Task<PDFWV2Instance> CreateInstance()
         {
-            return await CreateInstance(new PDFWV2Options());
+            PDFWV2InstanceManager.Instance = new PDFWV2Instance();
+            await InitAppWebView(PDFWV2InstanceManager.Options.ModuleFolder);
+            return PDFWV2InstanceManager.Instance;
         }
 
         /// <summary>
@@ -30,13 +35,8 @@ namespace PDFWV2
         /// <returns>Instance</returns>
         public static async Task<PDFWV2Instance> CreateInstance(PDFWV2Options Options)
         {
-            if (PDFWV2InstanceManager.Instance != null)
-            {
-                throw new Exception("Double Initialization! You can only initialize one instance in one process.");
-            }
-            PDFWV2InstanceManager.Instance = new PDFWV2Instance(Options);
-            await InitAppWebView(Options.ModuleFolder);
-            return PDFWV2InstanceManager.Instance;
+            PDFWV2InstanceManager.Options = Options;
+            return await CreateInstance();
         }
 
         /// <summary>

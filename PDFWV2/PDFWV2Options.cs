@@ -19,7 +19,7 @@
         Foreground
     }
     /// <summary>
-    /// Which PDF engine should PDFWV2 use
+    /// Which PDF engine should PDFWV2 use by default
     /// </summary>
     public enum Engines
     {
@@ -59,7 +59,7 @@
         /// <summary>
         /// Target PDF Engine, currently 'pdfjs' (default) and 'edge' are the only acceptable, more engines in future updates
         /// </summary>
-        public Engines Engine { get; set; } = Engines.PDFJS;
+        public Engines DefaultEngine { get; set; } = Engines.PDFJS;
         /// <summary>
         /// Enable F12 DebugTool, disabled by default
         /// </summary>

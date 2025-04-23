@@ -98,16 +98,36 @@ namespace PDFWV2
             return true;
         }
 
+        /// <summary>
+        /// Create default engine.
+        /// Warn: default engine may change to Edge PDF if FallbackToEdge enabled.
+        /// </summary>
+        /// <returns>PDFEngine</returns>
         public async Task<PDFEngine> CreateEngine()
         {
-            switch (PDFWV2InstanceManager.Options.Engine)
+            return await CreateEngine(PDFWV2InstanceManager.Options.DefaultEngine);
+        }
+
+        /// <summary>
+        /// Create specific engine.
+        /// Create same engine will just return created engine.
+        /// </summary>
+        /// <param name="Engine">Engines</param>
+        /// <returns>PDFEngine</returns>
+        public async Task<PDFEngine> CreateEngine(Engines Engine)
+        {
+            if (PDFWV2InstanceManager.ActiveEngines.ContainsKey(Engine))
             {
-                case Engines.EDGE:
-                default:
-                    return new PDFEngines.Edge();
-                case Engines.PDFJS:
-                    return new PDFEngines.PDFJS(PDFWV2InstanceManager.Options.ModuleFolder);
+                return PDFWV2InstanceManager.ActiveEngines[Engine];
             }
+            PDFEngine PDFEngine = Engine switch
+            {
+                Engines.PDFJS => new PDFEngines.PDFJS(PDFWV2InstanceManager.Options.ModuleFolder),
+                Engines.EDGE => new PDFEngines.Edge(),
+                _ => new PDFEngines.Edge(),
+            };
+            PDFWV2InstanceManager.ActiveEngines.Add(Engine,PDFEngine);
+            return PDFEngine;
         }
 
         /// <summary>

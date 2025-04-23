@@ -26,6 +26,10 @@ namespace PDFWV2
         /// </summary>
         internal static CoreWebView2Controller? AliveController;
         /// <summary>
+        /// Stores created engines
+        /// </summary>
+        internal static Dictionary<Engines,PDFEngine> ActiveEngines = [];
+        /// <summary>
         /// A list of active documents.
         /// Instance can only be destroyed with no active document.
         /// </summary>

@@ -7,6 +7,8 @@ namespace PDFWV2.PDFEngines
     {
         private string FolderPath = string.Empty;
 
+        private EngineVersion Version;
+
         public PDFJS(string ModuleFolder) : base(ModuleFolder)
         {
             FolderPath = ModuleFolder + "\\PDFJS";
@@ -16,8 +18,18 @@ namespace PDFWV2.PDFEngines
                 using FileStream createStream = File.Create(FolderPath + "\\version.json");
                 {
                     JsonSerializer.Serialize(createStream, new EngineVersion() { Name = "pdfjs" });
+                    Version = new EngineVersion();
                 }
             }
+            else
+            {
+                Version = JsonSerializer.Deserialize<EngineVersion>(FolderPath + "\\version.json") ?? new EngineVersion();
+            }
+            Prepare();
+        }
+
+        private async Task Prepare()
+        {
 
         }
 
@@ -45,9 +57,24 @@ namespace PDFWV2.PDFEngines
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc />
         public override bool IsReady()
         {
-            throw new NotImplementedException();
+            if (Version.Version == 0)
+            {
+                return false;
+            }
+            else
+            {
+                if(PDFWV2InstanceManager.Options.EnableUpdate==UpdateMode.Foreground&&Version.UpdateTime!= DateTime.Now.Date.ToLongDateString())
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
         }
     }
 

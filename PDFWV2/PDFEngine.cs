@@ -48,7 +48,7 @@ namespace PDFWV2
         public PDFWindow ViewFile(string Path)
         {
             // Check whether it's PDF file first to avoid suspecious attacks
-            if (Utils.PDFHelper.IsPdf(Path))
+            if (PDFWV2InstanceManager.Options.SecurityHardenLevel==SecurityLevel.None || Utils.PDFHelper.IsPdf(Path))
             {
                 return ViewFileEngine(Path);
             }

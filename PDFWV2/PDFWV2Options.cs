@@ -40,15 +40,15 @@
         /// <summary>
         /// No security harden, best performance, should only use when you only want to show non-userselected local document
         /// </summary>
-        None,
+        None = 0,
         /// <summary>
         /// Basic security harden, verify local PDF format, prevent path travesal
         /// </summary>
-        Basic,
+        Basic = 1,
         /// <summary>
         /// Enhanced security harden, includes all basic harden plus WebView2 enhanced anti-debugging
         /// </summary>
-        Enhanced
+        Enhanced = 2
     }
 
     /// <summary>

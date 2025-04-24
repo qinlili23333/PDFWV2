@@ -75,7 +75,7 @@
         public bool FallbackToEdge { get; set; } = true;
         /// <summary>
         /// Whether to enable network request isolation.
-        /// If enabled, all network requests will be done in main process and convert to memory stream for PDF engine. All network request from PDF engine will be blocked.
+        /// If enabled, all network requests will be done in main process and convert to memory stream for PDF engine. All network request from PDF engine will be blocked. No cache will be used so time to open same PDF may increase.
         /// This enhances security to prevent remote execution from WebView2, but may impact performance.
         /// Enabled by default and not recommend to disable.
         /// If FallbackToEdge is enabled and fallback happens, this option will automatically enable to prevent remote execution.

@@ -6,7 +6,7 @@ namespace PDFWV2.Utils
     // From https://stackoverflow.com/a/46497896/29367811
     public static class HttpClientProgressExtensions
     {
-        public static async Task DownloadDataAsync(this HttpClient client, string requestUrl, Stream destination, IProgress<float> progress = null, CancellationToken cancellationToken = default(CancellationToken))
+        public static async Task DownloadDataAsync(this HttpClient client, string requestUrl, Stream destination, IProgress<float> progress = null, CancellationToken cancellationToken = default)
         {
             using (var response = await client.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead))
             {
@@ -25,10 +25,10 @@ namespace PDFWV2.Utils
                 }
             }
 
-            float GetProgressPercentage(float totalBytes, float currentBytes) => (totalBytes / currentBytes) * 100f;
+            float GetProgressPercentage(float totalBytes, float currentBytes) => totalBytes / currentBytes * 100f;
         }
 
-        static async Task CopyToAsync(this Stream source, Stream destination, int bufferSize, IProgress<long> progress = null, CancellationToken cancellationToken = default(CancellationToken))
+        static async Task CopyToAsync(this Stream source, Stream destination, int bufferSize, IProgress<long> progress = null, CancellationToken cancellationToken = default)
         {
             if (bufferSize < 0)
                 throw new ArgumentOutOfRangeException(nameof(bufferSize));

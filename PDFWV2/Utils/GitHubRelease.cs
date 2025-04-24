@@ -1,5 +1,4 @@
 ﻿using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -27,7 +26,7 @@ namespace PDFWV2.Utils
         /// </summary>
         /// <param name="Repo">A GitHubRepo object</param>
         /// <returns>A GitHubRelease object</returns>
-        public async static Task<GitHubRelease> GetLatestRelease(GitHubRepo Repo)
+        public static async Task<GitHubRelease> GetLatestRelease(GitHubRepo Repo)
         {
             try
             {

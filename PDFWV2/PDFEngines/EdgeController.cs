@@ -1,7 +1,5 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using System.IO;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace PDFWV2.PDFEngines
 {
@@ -85,10 +83,10 @@ namespace PDFWV2.PDFEngines
                object? sender, CoreWebView2WebResourceRequestedEventArgs args)
             {
                 // Edge PDF has nothing to save on same PDF, so no need for hashed URL to enable progress saving
-                if(args.Request.Uri==$"https://{PDFWV2InstanceManager.LocalDomain}/Stream.pdf")
-                { 
-                   CoreWebView2WebResourceResponse response = PDFWindow.WebView.CoreWebView2.Environment.CreateWebResourceResponse(Stream, 200, "OK", "Content-Type: application/pdf");
-                   args.Response = response;
+                if (args.Request.Uri == $"https://{PDFWV2InstanceManager.LocalDomain}/Stream.pdf")
+                {
+                    CoreWebView2WebResourceResponse response = PDFWindow.WebView.CoreWebView2.Environment.CreateWebResourceResponse(Stream, 200, "OK", "Content-Type: application/pdf");
+                    args.Response = response;
                 }
             };
             PDFWindow.WebView.CoreWebView2.Navigate($"https://{PDFWV2InstanceManager.LocalDomain}/Stream.pdf");
@@ -132,7 +130,7 @@ namespace PDFWV2.PDFEngines
             {
                 Window.WebView.CoreWebView2.Navigate(DocumentPath);
             }
-            Initialized=true;
+            Initialized = true;
             InitializeTCS.TrySetResult(true);
         }
 

@@ -15,7 +15,7 @@ namespace PDFWV2
         /// <summary>
         /// Options for instance.
         /// </summary>
-        internal static PDFWV2Options Options = new PDFWV2Options();
+        internal static PDFWV2Options Options = new();
         /// <summary>
         /// WebView2 environment for whole process.
         /// </summary>

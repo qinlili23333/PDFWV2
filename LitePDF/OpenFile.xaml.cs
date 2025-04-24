@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using PDFWV2;
+﻿using PDFWV2;
+using System.Windows;
 
 namespace LitePDF
 {
@@ -38,7 +38,7 @@ namespace LitePDF
             //Put options for debug here currently
             //TODO: make it configurable through GUI
             Engines Engines;
-            if(EngineSelect.SelectedIndex==0)
+            if (EngineSelect.SelectedIndex == 0)
             {
                 Engines = Engines.EDGE;
             }

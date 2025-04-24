@@ -24,7 +24,7 @@ namespace LitePDF
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         static void Main(params string[] Args)
         {
-            App app = new App();
+            App app = new();
             app.InitializeComponent(Args);
             app.Run();
         }

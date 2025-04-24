@@ -135,7 +135,7 @@ namespace PDFWV2
         /// </summary>
         /// <param name="Path">Data folder</param>
         /// <returns>Async void</returns>
-        private async static Task InitAppWebView(string Path)
+        private static async Task InitAppWebView(string Path)
         {
             if (PDFWV2InstanceManager.WebView2Environment != null)
             {

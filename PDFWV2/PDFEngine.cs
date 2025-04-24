@@ -2,6 +2,26 @@
 
 namespace PDFWV2
 {
+    /// <summary>
+    /// Structure for engine version JSON file.
+    /// Not all engines will use this.
+    /// </summary>
+    public class EngineVersion
+    {
+        /// <summary>
+        /// Name of the engine.
+        /// </summary>
+        public string Name { get; set; } = "Default";
+        /// <summary>
+        /// Version of the engine in long.
+        /// </summary>
+        public long Version { get; set; } = 0;
+        /// <summary>
+        /// Last time update successfully performed.
+        /// </summary>
+        public string UpdateTime { get; set; } = DateTime.Now.Date.ToString();
+    }
+
     public abstract class PDFEngine
     {
         /// <summary>

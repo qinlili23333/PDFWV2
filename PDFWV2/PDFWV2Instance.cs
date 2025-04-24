@@ -1,6 +1,7 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using System.Diagnostics;
 using System.IO;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PDFWV2
 {
@@ -70,7 +71,7 @@ namespace PDFWV2
         /// <param name="Force">Whether to force close all opened documents</param>
         /// <returns>Async bool of whether dispose is success</returns>
         /// <exception cref="NullReferenceException"></exception>
-        public static async Task<bool> Dispose(bool Force)
+        public async Task<bool> Dispose(bool Force)
         {
             if (PDFWV2InstanceManager.Instance == null)
             {
@@ -128,6 +129,15 @@ namespace PDFWV2
             };
             PDFWV2InstanceManager.ActiveEngines.Add(Engine, PDFEngine);
             return PDFEngine;
+        }
+
+        /// <summary>
+        /// Clear all data in PDFWV2 WebView2 instance.
+        /// </summary>
+        public async Task ClearCache()
+        {
+            CoreWebView2Profile profile = PDFWV2InstanceManager.AliveController.CoreWebView2.Profile;
+            await profile.ClearBrowsingDataAsync();
         }
 
         /// <summary>

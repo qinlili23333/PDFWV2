@@ -1,5 +1,6 @@
 # PDFWV2
 One line to show PDF in .NET applications, with always up-to-date PDF.js (and more engines in future)  
+[![NuGet version](https://badge.fury.io/nu/Qinlili.PDFWV2.svg)](https://badge.fury.io/nu/Qinlili.PDFWV2)  
 
 ## Features
 - View/edit PDF in .NET applications  

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using PDFWV2.Utils;
+using System.IO;
 
 namespace PDFWV2.PDFEngines
 {
@@ -32,7 +33,22 @@ namespace PDFWV2.PDFEngines
         /// <inheritdoc />
         public override PDFWindow ViewURL(string URL)
         {
-            return new PDFWindow(new EdgeController(URL));
+            if (PDFWV2InstanceManager.Options.NetworkRequestIsolation)
+            {
+                var Controller = new EdgeController();
+                GetFileAndFulfill(Controller, URL);
+                return new PDFWindow(Controller);
+            }
+            else
+            {
+                return new PDFWindow(new EdgeController(URL));
+            }
+        }
+
+        private async void GetFileAndFulfill(EdgeController Controller, string URL)
+        {
+            Stream ContentStream = await Network.GetHttpStream(URL);
+            Controller.FulfillStream(ContentStream);
         }
 
         /// <inheritdoc />

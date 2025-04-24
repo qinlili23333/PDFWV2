@@ -1,7 +1,6 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using System.Diagnostics;
 using System.IO;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PDFWV2
 {

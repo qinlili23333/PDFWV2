@@ -19,7 +19,7 @@ namespace PDFWV2
         /// <summary>
         /// Last time update successfully performed.
         /// </summary>
-        public string UpdateTime { get; set; } = DateTime.Now.Date.ToString();
+        public string UpdateTime { get; set; } = DateTime.Now.Date.ToLongDateString();
     }
 
     public abstract class PDFEngine

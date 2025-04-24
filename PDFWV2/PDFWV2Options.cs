@@ -50,6 +50,25 @@
         /// </summary>
         Enhanced
     }
+
+    /// <summary>
+    /// Advanced permissions for viewer
+    /// </summary>
+    public enum Permissions
+    {
+        /// <summary>
+        /// Allow directly saving PDF to local
+        /// </summary>
+        Save = 1,
+        /// <summary>
+        /// Allow printing PDF
+        /// </summary>
+        Print = 2
+    }
+
+    /// <summary>
+    /// PDFWV2 options to initialize instance
+    /// </summary>
     public class PDFWV2Options
     {
         /// <summary>
@@ -88,5 +107,9 @@
         /// Default level is Basic.
         /// </summary>
         public SecurityLevel SecurityHardenLevel { get; set; } = SecurityLevel.Basic;
+        /// <summary>
+        /// Permissions for viewer, all allowed by default
+        /// </summary>
+        public Permissions Permissions { get; set; } = Permissions.Save | Permissions.Print;
     }
 }

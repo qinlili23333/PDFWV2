@@ -10,5 +10,10 @@
         /// Call when PDFWindow successfully created WebView2Controller
         /// </summary>
         internal abstract void OnWebViewReady(PDFWindow Window);
+
+        /// <summary>
+        /// Dispose all used resources
+        /// </summary>
+        internal abstract void Dispose();
     }
 }

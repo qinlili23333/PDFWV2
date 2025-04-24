@@ -57,5 +57,11 @@ namespace PDFWV2
             };
             EngineController.OnWebViewReady(this);
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            EngineController.Dispose();
+            WebView.Dispose();
+        }
     }
 }

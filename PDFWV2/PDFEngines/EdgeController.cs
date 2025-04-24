@@ -135,5 +135,10 @@ namespace PDFWV2.PDFEngines
             Initialized=true;
             InitializeTCS.TrySetResult(true);
         }
+
+        internal override void Dispose()
+        {
+            DocumentStream?.Dispose();
+        }
     }
 }

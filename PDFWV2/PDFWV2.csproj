@@ -6,7 +6,26 @@
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU;x64</Platforms>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>Qinlili.PDFWV2</PackageId>
+    <Title>PDFWV2</Title>
+    <Authors>Qinlili</Authors>
+    <Description>One line to show PDF in .NET applications, with always up-to-date PDF engines</Description>
+    <Copyright>Qinlili 2025</Copyright>
+    <PackageProjectUrl>https://github.com/qinlili23333/PDFWV2</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/qinlili23333/PDFWV2.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>PDF, reader, viewer</PackageTags>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3179.45" />

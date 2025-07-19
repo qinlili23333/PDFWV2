@@ -111,14 +111,20 @@
         /// Permissions for viewer, all allowed by default
         /// </summary>
         public Permissions Permissions { get; set; } = Permissions.Save | Permissions.Print;
-
         /// <summary>
         /// Local virtual domain, no need to change unless you want to use your own customized Adobe API key
         /// DO NOT use real domain, for security reason
         /// </summary>
         public string LocalDomain { get; set; } = "pdfwv2-local.qinlili.bid";
-        // Bunch of Adobe specific options
 
+        // Bunch of Adobe specific options
+        /// <summary>
+        /// Adobe API key, the built-in one should work but with activity logged to Qinlili Tech
+        /// Use your own key to log activities to your account
+        /// Get free key at https://developer.adobe.com/document-services/apis/pdf-embed/
+        /// You MUST change LocalDomain with the same of your API key
+        /// </summary>
+        public string AdobeKey { get; set; } = "33224f60f17e485d9fc76abf3db1c92f";
 
     }
 }

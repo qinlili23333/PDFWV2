@@ -7,7 +7,8 @@ namespace PDFWV2.PDFEngines
     {
         public Adobe() : base(string.Empty)
         {
-
+            // Preload SDK in keep alive webview
+            PDFWV2InstanceManager.AliveController?.CoreWebView2.NavigateToString(WebRes.WebRes.AdobeWeb);
         }
         /// <inheritdoc />
         public override UpdateResult Update()

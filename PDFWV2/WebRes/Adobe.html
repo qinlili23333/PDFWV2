@@ -24,13 +24,15 @@
                 metaData: { fileName: window.file.name }
             }, {});
         }
-        document.addEventListener("adobe_dc_view_sdk.ready", function () {
-            document.body.removeChild(document.getElementById("loading"));
-            window.adobeDCView = new AdobeDC.View({ clientId: AdobeKey, divId: "adobe-dc-view" });
-            if (window.file) {
-                Load();
-            }
-        });
+        if (location.href.startsWith("http")) {
+            document.addEventListener("adobe_dc_view_sdk.ready", function () {
+                document.body.removeChild(document.getElementById("loading"));
+                window.adobeDCView = new AdobeDC.View({ clientId: AdobeKey, divId: "adobe-dc-view" });
+                if (window.file) {
+                    Load();
+                }
+            });
+        }
     </script>
 </body>
 

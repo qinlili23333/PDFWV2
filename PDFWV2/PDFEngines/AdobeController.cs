@@ -70,8 +70,6 @@ namespace PDFWV2.PDFEngines
         private async Task LoadStream(Stream Stream)
         {
             await WaitReady();
-            PDFWindow.WebView.CoreWebView2.AddWebResourceRequestedFilter(
-      "*", CoreWebView2WebResourceContext.Document);
             PDFWindow.WebView.CoreWebView2.WebResourceRequested += delegate (
                object? sender, CoreWebView2WebResourceRequestedEventArgs args)
             {
@@ -89,6 +87,8 @@ namespace PDFWV2.PDFEngines
         {
             PDFWindow = Window;
             PDFWindow.WebView.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync($"const AdobeKey=\"{PDFWV2InstanceManager.Options.AdobeKey}\";");
+            PDFWindow.WebView.CoreWebView2.AddWebResourceRequestedFilter(
+      "*", CoreWebView2WebResourceContext.Document);
             PDFWindow.WebView.CoreWebView2.WebResourceRequested += delegate (
    object? sender, CoreWebView2WebResourceRequestedEventArgs args)
             {

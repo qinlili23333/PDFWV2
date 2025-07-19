@@ -11,6 +11,14 @@ Value: `pdfjs`
 Mozilla [PDF.js](https://mozilla.github.io/pdf.js/), good compatibility and moderate performance. Supports various enhanced features like highlight and draw.  
 Updates regularly.  
 Requires approx 6MB download size.  
+## Adobe PDF
+Value: `adobe`
+Adobe PDF engine, close sourced but with good compatibility and moderate performance. Supports various enhanced features like highlight and draw.  
+Dynamically loaded from Adobe servers, so no additional download size is required.  
+> [!WARN]  
+> Adobe collectes usage data. By default the built-in key will send usage data to Qinlili Tech. Use your own key to collect by yourself.  
+> Get key at [Adobe Embedded PDF Service](https://developer.adobe.com/document-services/apis/pdf-embed/).  
+> This engine may not work in some regions due to network restrictions and Adobe policy.  
 ## MuPDF.js (Planned in future)
 Value: `mupdf`
 Written in C and compiled to WebAssembly, [MuPDF](http://www.mupdf.com/) is extremely fast with good compatibility. Memory usage may be a bit high.  

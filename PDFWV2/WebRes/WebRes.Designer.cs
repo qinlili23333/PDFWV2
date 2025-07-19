@@ -61,6 +61,15 @@ namespace PDFWV2.WebRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AdobeWeb {
+            get {
+                return ResourceManager.GetString("AdobeWeb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;!doctype html&gt;
         ///&lt;html&gt;
         ///

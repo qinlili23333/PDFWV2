@@ -1,5 +1,7 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using System.IO;
+using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PDFWV2.PDFEngines
 {
@@ -74,7 +76,7 @@ namespace PDFWV2.PDFEngines
             PDFWindow.WebView.CoreWebView2.WebResourceRequested += delegate (
                object? sender, CoreWebView2WebResourceRequestedEventArgs args)
             {
-                // Edge PDF has nothing to save on same PDF, so no need for hashed URL to enable progress saving
+                // Adobe PDF has nothing to save on same PDF, so no need for hashed URL to enable progress saving
                 if (args.Request.Uri == $"https://{PDFWV2InstanceManager.Options.LocalDomain}/Stream.pdf")
                 {
                     CoreWebView2WebResourceResponse response = PDFWindow.WebView.CoreWebView2.Environment.CreateWebResourceResponse(Stream, 200, "OK", "Content-Type: application/pdf");
@@ -87,6 +89,19 @@ namespace PDFWV2.PDFEngines
         internal override void OnWebViewReady(PDFWindow Window)
         {
             PDFWindow = Window;
+            PDFWindow.WebView.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync($"const AdobeKey=\"{PDFWV2InstanceManager.Options.AdobeKey}\";");
+            PDFWindow.WebView.CoreWebView2.WebResourceRequested += delegate (
+   object? sender, CoreWebView2WebResourceRequestedEventArgs args)
+            {
+                if (args.Request.Uri == $"https://{PDFWV2InstanceManager.Options.LocalDomain}/Adobe.html")
+                {
+                    byte[] byteArray = Encoding.ASCII.GetBytes(WebRes.WebRes.AdobeWeb);
+                    MemoryStream stream = new(byteArray);
+                    CoreWebView2WebResourceResponse response = PDFWindow.WebView.CoreWebView2.Environment.CreateWebResourceResponse(stream, 200, "OK", "Content-Type: text/html");
+                    args.Response = response;
+                }
+            };
+            Window.WebView.CoreWebView2.Navigate($"https://{PDFWV2InstanceManager.Options.LocalDomain}/Adobe.html");
         }
 
         internal override void Dispose()

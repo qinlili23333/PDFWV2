@@ -111,5 +111,14 @@
         /// Permissions for viewer, all allowed by default
         /// </summary>
         public Permissions Permissions { get; set; } = Permissions.Save | Permissions.Print;
+
+        /// <summary>
+        /// Local virtual domain, no need to change unless you want to use your own customized Adobe API key
+        /// DO NOT use real domain, for security reason
+        /// </summary>
+        public string LocalDomain { get; set; } = "pdfwv2-local.qinlili.bid";
+        // Bunch of Adobe specific options
+
+
     }
 }

@@ -75,13 +75,13 @@ namespace PDFWV2.PDFEngines
                object? sender, CoreWebView2WebResourceRequestedEventArgs args)
             {
                 // Edge PDF has nothing to save on same PDF, so no need for hashed URL to enable progress saving
-                if (args.Request.Uri == $"https://{PDFWV2InstanceManager.LocalDomain}/Stream.pdf")
+                if (args.Request.Uri == $"https://{PDFWV2InstanceManager.Options.LocalDomain}/Stream.pdf")
                 {
                     CoreWebView2WebResourceResponse response = PDFWindow.WebView.CoreWebView2.Environment.CreateWebResourceResponse(Stream, 200, "OK", "Content-Type: application/pdf");
                     args.Response = response;
                 }
             };
-            PDFWindow.WebView.CoreWebView2.Navigate($"https://{PDFWV2InstanceManager.LocalDomain}/Stream.pdf");
+            PDFWindow.WebView.CoreWebView2.Navigate($"https://{PDFWV2InstanceManager.Options.LocalDomain}/Stream.pdf");
         }
 
         internal override void OnWebViewReady(PDFWindow Window)

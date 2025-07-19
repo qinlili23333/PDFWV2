@@ -78,10 +78,10 @@ namespace PDFWV2.PDFEngines
         internal async void PrepareFileStream()
         {
             FileStream ReadStream = File.OpenRead(DocumentPath);
-            MemoryStream MemStream = new();
-            await ReadStream.CopyToAsync(MemStream);
+            DocumentStream = new MemoryStream();
+            await ReadStream.CopyToAsync(DocumentStream);
             ReadStream.Close();
-            FulfillStream(MemStream);
+            FulfillStream(DocumentStream);
         }
 
         /// <summary>

@@ -20,6 +20,10 @@ namespace PDFWV2
         /// Last time update successfully performed.
         /// </summary>
         public string UpdateTime { get; set; } = DateTime.Now.Date.ToLongDateString();
+        /// <summary>
+        /// If there is an update package pending extraction, record version here.
+        /// </summary>
+        public long PkgVersion { get; set; } = 0;
     }
 
     public abstract class PDFEngine

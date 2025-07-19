@@ -64,7 +64,7 @@ namespace LitePDF
 
         private async void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-            if(Engine==null)
+            if (Engine == null)
             {
                 await CreateEngine();
             }

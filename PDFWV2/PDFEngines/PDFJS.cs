@@ -65,8 +65,8 @@ namespace PDFWV2.PDFEngines
                         try
                         {
                             Stream fileStream = await httpClient.GetStreamAsync(DownloadURL);
-                            // If no live instance, directly install
-                            if (PDFWV2InstanceManager.ActiveDocuments.Count == 0)
+                            // If no live instance or no installed version, directly install
+                            if (Version.Version == 0 || PDFWV2InstanceManager.ActiveDocuments.Count == 0)
                             {
                                 ZipFile.ExtractToDirectory(fileStream, FolderPath);
                                 Version.Version = LatestVer;
@@ -121,19 +121,19 @@ namespace PDFWV2.PDFEngines
         /// <inheritdoc />
         protected override PDFWindow ViewFileEngine(string Path)
         {
-            throw new NotImplementedException();
+            return new PDFWindow(new PDFJSController(FolderPath));
         }
 
         /// <inheritdoc />
         public override PDFWindow ViewStream(Stream Stream)
         {
-            throw new NotImplementedException();
+            return new PDFWindow(new PDFJSController(FolderPath));
         }
 
         /// <inheritdoc />
         public override PDFWindow ViewURL(string URL)
         {
-            throw new NotImplementedException();
+            return new PDFWindow(new PDFJSController(FolderPath));
         }
 
         /// <inheritdoc />

@@ -10,7 +10,7 @@ namespace PDFWV2.PDFEngines
 
         }
         /// <inheritdoc />
-        public override UpdateResult Update()
+        public override async Task<UpdateResult> Update()
         {
             // Edge PDF engine should always up to date.
             return UpdateResult.NoUpdate;

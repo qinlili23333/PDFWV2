@@ -45,7 +45,7 @@ namespace PDFWV2
         /// Trigger update of the engine, return in UpdateResult.
         /// If EnableUpdate is not Never, then this method will be called automatically.
         /// </summary>
-        public abstract UpdateResult Update();
+        public abstract Task<UpdateResult> Update();
 
         /// <summary>
         /// Whether this engine is ready to use.

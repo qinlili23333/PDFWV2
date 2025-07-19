@@ -25,18 +25,14 @@ namespace PDFWV2.PDFEngines
             {
                 Version = JsonSerializer.Deserialize<EngineVersion>(FolderPath + "\\version.json") ?? new EngineVersion();
             }
-            Prepare();
-        }
-
-        private async Task Prepare()
-        {
-
+            Update();
         }
 
         /// <inheritdoc />
-        public override UpdateResult Update()
+        public override async Task<UpdateResult> Update()
         {
-            throw new NotImplementedException();
+            // Check and download latest version
+            return UpdateResult.Done;
         }
 
         /// <inheritdoc />

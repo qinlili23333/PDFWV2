@@ -11,7 +11,7 @@ namespace PDFWV2.PDFEngines
             PDFWV2InstanceManager.AliveController?.CoreWebView2.NavigateToString(WebRes.WebRes.AdobeWeb);
         }
         /// <inheritdoc />
-        public override UpdateResult Update()
+        public override async Task<UpdateResult> Update()
         {
             // Adobe PDF engine should always up to date.
             return UpdateResult.NoUpdate;

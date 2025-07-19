@@ -21,7 +21,7 @@ namespace PDFWV2.PDFEngines
         {
             // There is no need to convert to stream for Adobe PDF
             // Just directly open it
-            return new PDFWindow(new AdobeController(new System.Uri(Path).AbsoluteUri));
+            return new PDFWindow(new AdobeController(Path));
         }
 
         /// <inheritdoc />

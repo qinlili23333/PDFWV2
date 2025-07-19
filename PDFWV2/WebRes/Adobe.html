@@ -12,13 +12,24 @@
     <div id="adobe-dc-view"></div>
     <script src="https://acrobatservices.adobe.com/view-sdk/viewer.js"></script>
     <script type="text/javascript">
+        const FulfillURL = (url, name) => {
+            window.file = { url: url, name: name };
+            if (!document.getElementById("loading")) {
+                Load();
+            }
+        }
+        const Load = () => {
+            adobeDCView.previewFile({
+                content: { location: { url: window.file.url } },
+                metaData: { fileName: window.file.name }
+            }, {});
+        }
         document.addEventListener("adobe_dc_view_sdk.ready", function () {
             document.body.removeChild(document.getElementById("loading"));
-            var adobeDCView = new AdobeDC.View({ clientId: AdobeKey, divId: "adobe-dc-view" });
-            adobeDCView.previewFile({
-                content: { location: { url: "https://acrobatservices.adobe.com/view-sdk-demo/PDFs/Bodea Brochure.pdf" } },
-                metaData: { fileName: "Bodea Brochure.pdf" }
-            }, {});
+            window.adobeDCView = new AdobeDC.View({ clientId: AdobeKey, divId: "adobe-dc-view" });
+            if (window.file) {
+                Load();
+            }
         });
     </script>
 </body>

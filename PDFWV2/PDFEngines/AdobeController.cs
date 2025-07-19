@@ -8,6 +8,7 @@ namespace PDFWV2.PDFEngines
     {
         private Stream? DocumentStream;
         private string DocumentPath = string.Empty;
+        private string FileName = "DefaultFileName.pdf";
         private bool PreloadMode = false;
         private PDFWindow? PDFWindow;
 
@@ -31,6 +32,9 @@ namespace PDFWV2.PDFEngines
         internal AdobeController(string Path)
         {
             DocumentPath = Path;
+            PreloadMode = true;
+            FileName = System.IO.Path.GetFileName(DocumentPath);
+            PrepareFileStream();
         }
 
         /// <summary>
@@ -59,8 +63,28 @@ namespace PDFWV2.PDFEngines
             }
         }
 
+        /// <summary>
+        /// Read file to memory stream
+        /// </summary>
+        internal async void PrepareFileStream()
+        {
+            FileStream ReadStream = File.OpenRead(DocumentPath);
+            MemoryStream MemStream = new();
+            await ReadStream.CopyToAsync(MemStream);
+            ReadStream.Close();
+            FulfillStream(MemStream);
+        }
+
         private async Task WaitReady()
         {
+            if (Initialized)
+            {
+                return;
+            }
+            else
+            {
+                await InitializeTCS.Task;
+            }
         }
 
         /// <summary>
@@ -70,6 +94,8 @@ namespace PDFWV2.PDFEngines
         private async Task LoadStream(Stream Stream)
         {
             await WaitReady();
+            PDFWindow.WebView.CoreWebView2.AddWebResourceRequestedFilter(
+      "*", CoreWebView2WebResourceContext.XmlHttpRequest);
             PDFWindow.WebView.CoreWebView2.WebResourceRequested += delegate (
                object? sender, CoreWebView2WebResourceRequestedEventArgs args)
             {
@@ -80,7 +106,12 @@ namespace PDFWV2.PDFEngines
                     args.Response = response;
                 }
             };
-            PDFWindow.WebView.CoreWebView2.Navigate($"https://{PDFWV2InstanceManager.Options.LocalDomain}/Stream.pdf");
+            // TODO: Add API to show file name
+            PDFWindow.WebView.CoreWebView2.NavigationCompleted += delegate (
+                object? sender, CoreWebView2NavigationCompletedEventArgs args)
+            {
+                PDFWindow.WebView.CoreWebView2.ExecuteScriptAsync($"FulfillURL(\"https://{PDFWV2InstanceManager.Options.LocalDomain}/Stream.pdf\",\"{FileName}\");");
+            };
         }
 
         internal override void OnWebViewReady(PDFWindow Window)
@@ -101,6 +132,8 @@ namespace PDFWV2.PDFEngines
                 }
             };
             Window.WebView.CoreWebView2.Navigate($"https://{PDFWV2InstanceManager.Options.LocalDomain}/Adobe.html");
+            Initialized = true;
+            InitializeTCS.TrySetResult(true);
         }
 
         internal override void Dispose()

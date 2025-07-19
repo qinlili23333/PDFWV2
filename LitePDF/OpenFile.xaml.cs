@@ -33,7 +33,7 @@ namespace LitePDF
             }
         }
 
-        private async void OpenButton_Click(object sender, RoutedEventArgs e)
+        private async Task CreateEngine()
         {
             //Put options for debug here currently
             //TODO: make it configurable through GUI
@@ -60,6 +60,14 @@ namespace LitePDF
             DevTool.IsEnabled = false;
             NetworkRequestIsolation.IsEnabled = false;
             Engine = await PDF.CreateEngine(Engines);
+        }
+
+        private async void OpenButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(Engine==null)
+            {
+                await CreateEngine();
+            }
             if (Type.SelectedIndex == 0)
             {
                 Engine.ViewFile(Path.Text).Show();
@@ -70,6 +78,11 @@ namespace LitePDF
 
             }
 
+        }
+
+        private async void Preheat_Click(object sender, RoutedEventArgs e)
+        {
+            await CreateEngine();
         }
     }
 }

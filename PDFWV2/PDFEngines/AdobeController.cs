@@ -122,14 +122,14 @@ namespace PDFWV2.PDFEngines
             await WaitReady();
             PDFWindow.WebView.CoreWebView2.AddWebResourceRequestedFilter(
       "*", CoreWebView2WebResourceContext.XmlHttpRequest);
+            CoreWebView2WebResourceResponse PDFResp = PDFWindow.WebView.CoreWebView2.Environment.CreateWebResourceResponse(Stream, 200, "OK", "Content-Type: application/pdf");
             PDFWindow.WebView.CoreWebView2.WebResourceRequested += delegate (
                object? sender, CoreWebView2WebResourceRequestedEventArgs args)
             {
                 // Adobe PDF has nothing to save on same PDF, so no need for hashed URL to enable progress saving
                 if (args.Request.Uri == $"https://{PDFWV2InstanceManager.Options.LocalDomain}/Stream.pdf")
                 {
-                    CoreWebView2WebResourceResponse response = PDFWindow.WebView.CoreWebView2.Environment.CreateWebResourceResponse(Stream, 200, "OK", "Content-Type: application/pdf");
-                    args.Response = response;
+                    args.Response = PDFResp;
                 }
             };
             // TODO: Add API to show file name
@@ -146,15 +146,15 @@ namespace PDFWV2.PDFEngines
             PDFWindow.WebView.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync($"const AdobeKey=\"{PDFWV2InstanceManager.Options.AdobeKey}\";");
             PDFWindow.WebView.CoreWebView2.AddWebResourceRequestedFilter(
       "*", CoreWebView2WebResourceContext.Document);
+            byte[] byteArray = Encoding.ASCII.GetBytes(WebRes.WebRes.AdobeWeb);
+            MemoryStream stream = new(byteArray);
+            CoreWebView2WebResourceResponse WebResp = PDFWindow.WebView.CoreWebView2.Environment.CreateWebResourceResponse(stream, 200, "OK", "Content-Type: text/html");
             PDFWindow.WebView.CoreWebView2.WebResourceRequested += delegate (
    object? sender, CoreWebView2WebResourceRequestedEventArgs args)
             {
                 if (args.Request.Uri == $"https://{PDFWV2InstanceManager.Options.LocalDomain}/Adobe.html")
                 {
-                    byte[] byteArray = Encoding.ASCII.GetBytes(WebRes.WebRes.AdobeWeb);
-                    MemoryStream stream = new(byteArray);
-                    CoreWebView2WebResourceResponse response = PDFWindow.WebView.CoreWebView2.Environment.CreateWebResourceResponse(stream, 200, "OK", "Content-Type: text/html");
-                    args.Response = response;
+                    args.Response = WebResp;
                 }
             };
             Window.WebView.CoreWebView2.Navigate($"https://{PDFWV2InstanceManager.Options.LocalDomain}/Adobe.html");

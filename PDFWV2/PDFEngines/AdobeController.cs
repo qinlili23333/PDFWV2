@@ -1,7 +1,6 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using System.IO;
 using System.Text;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace PDFWV2.PDFEngines
 {

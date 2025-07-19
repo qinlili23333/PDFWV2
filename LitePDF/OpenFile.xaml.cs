@@ -42,9 +42,13 @@ namespace LitePDF
             {
                 Engines = Engines.EDGE;
             }
-            else
+            else if (EngineSelect.SelectedIndex == 1)
             {
                 Engines = Engines.PDFJS;
+            }
+            else
+            {
+                Engines = Engines.Adobe;
             }
             PDFWV2Options Options = new()
             {

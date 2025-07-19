@@ -30,7 +30,11 @@
         /// <summary>
         /// Mozilla PDF.js, needs download for first time
         /// </summary>
-        PDFJS
+        PDFJS,
+        /// <summary>
+        /// Adobe PDF Embedded API, no download required but always require Internet connection, close sourced with data collection
+        /// </summary>
+        Adobe
     }
     /// <summary>
     /// How many security harden techniques should be applied

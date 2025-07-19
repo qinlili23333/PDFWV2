@@ -124,6 +124,7 @@ namespace PDFWV2
             {
                 Engines.PDFJS => new PDFEngines.PDFJS(PDFWV2InstanceManager.Options.ModuleFolder),
                 Engines.EDGE => new PDFEngines.Edge(),
+                Engines.Adobe => new PDFEngines.Adobe(),
                 _ => new PDFEngines.Edge(),
             };
             PDFWV2InstanceManager.ActiveEngines.Add(Engine, PDFEngine);

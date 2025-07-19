@@ -66,7 +66,7 @@ namespace PDFWV2.PDFEngines
             }
             else
             {
-                if(PDFWV2InstanceManager.Options.EnableUpdate==UpdateMode.Foreground&&Version.UpdateTime!= DateTime.Now.Date.ToLongDateString())
+                if (PDFWV2InstanceManager.Options.EnableUpdate == UpdateMode.Foreground && Version.UpdateTime != DateTime.Now.Date.ToLongDateString())
                 {
                     return false;
                 }

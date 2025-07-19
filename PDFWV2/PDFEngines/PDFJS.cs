@@ -28,7 +28,11 @@ namespace PDFWV2.PDFEngines
             {
                 Version = JsonSerializer.Deserialize<EngineVersion>(File.ReadAllText(FolderPath + "\\version.json")) ?? new EngineVersion();
             }
-            if (Version.Version == 0 || PDFWV2InstanceManager.Options.EnableUpdate != UpdateMode.Never)
+            if (File.Exists(FolderPath + "\\update.zip"))
+            {
+                InstallPkg();
+            }
+            else if (Version.Version == 0 || (PDFWV2InstanceManager.Options.EnableUpdate != UpdateMode.Never && Version.UpdateTime != DateTime.Now.Date.ToLongDateString()))
             {
                 Update();
             }
@@ -44,6 +48,28 @@ namespace PDFWV2.PDFEngines
             {
                 await JsonSerializer.SerializeAsync(createStream, Version);
             }
+        }
+
+        /// <summary>
+        /// Install downloaded update package
+        /// </summary>
+        /// <returns></returns>
+        private async Task InstallPkg()
+        {
+            try
+            {
+                ZipFile.ExtractToDirectory(FolderPath + "\\update.zip", FolderPath, true);
+            }
+            catch (Exception)
+            {
+                // Just remove failed file and redownload next time
+                File.Delete(FolderPath + "\\update.zip");
+            }
+            Version.Version = Version.PkgVersion;
+            Version.UpdateTime = DateTime.Now.Date.ToLongDateString();
+            Version.PkgVersion = 0;
+            File.Delete(FolderPath + "\\update.zip");
+            await SaveVersion();
         }
 
         /// <inheritdoc />
@@ -68,7 +94,7 @@ namespace PDFWV2.PDFEngines
                             // If no live instance or no installed version, directly install
                             if (Version.Version == 0 || PDFWV2InstanceManager.ActiveDocuments.Count == 0)
                             {
-                                ZipFile.ExtractToDirectory(fileStream, FolderPath);
+                                ZipFile.ExtractToDirectory(fileStream, FolderPath, true);
                                 Version.Version = LatestVer;
                                 Version.UpdateTime = DateTime.Now.Date.ToLongDateString();
                                 await SaveVersion();

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Web.WebView2.Core;
-using Microsoft.Win32;
 
 namespace PDFWV2.PDFEngines
 {

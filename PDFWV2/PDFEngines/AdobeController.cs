@@ -31,10 +31,19 @@ namespace PDFWV2.PDFEngines
         /// <param name="Path"></param>
         internal AdobeController(string Path)
         {
-            DocumentPath = Path;
-            PreloadMode = true;
-            FileName = System.IO.Path.GetFileName(DocumentPath);
-            PrepareFileStream();
+            if (Path.StartsWith("http"))
+            {
+                // Online file
+                PrepareURL(Path);
+            }
+            else
+            {
+                // Local file
+                DocumentPath = Path;
+                PreloadMode = true;
+                FileName = System.IO.Path.GetFileName(DocumentPath);
+                PrepareFileStream();
+            }
         }
 
         /// <summary>
@@ -75,6 +84,23 @@ namespace PDFWV2.PDFEngines
             FulfillStream(MemStream);
         }
 
+        /// <summary>
+        /// Load file only when page initialized
+        /// </summary>
+        internal async void PrepareURL(string url)
+        {
+            await WaitReady();
+            PDFWindow.WebView.CoreWebView2.NavigationCompleted += delegate (
+                object? sender, CoreWebView2NavigationCompletedEventArgs args)
+            {
+                PDFWindow.WebView.CoreWebView2.ExecuteScriptAsync($"FulfillURL(\"{url}\",\"{FileName}\");");
+            };
+        }
+
+        /// <summary>
+        /// Wait until WebView initialized
+        /// </summary>
+        /// <returns></returns>
         private async Task WaitReady()
         {
             if (Initialized)

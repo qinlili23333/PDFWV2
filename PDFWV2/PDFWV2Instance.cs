@@ -163,6 +163,7 @@ namespace PDFWV2
                 //Create hidden WebView2 on MSG HWND to keep alive
                 IntPtr HWND_MESSAGE = new(-3);
                 PDFWV2InstanceManager.AliveController = await PDFWV2InstanceManager.WebView2Environment.CreateCoreWebView2ControllerAsync(HWND_MESSAGE);
+                PDFWV2InstanceManager.AliveController.CoreWebView2.MemoryUsageTargetLevel = CoreWebView2MemoryUsageTargetLevel.Low;
             }
         }
 

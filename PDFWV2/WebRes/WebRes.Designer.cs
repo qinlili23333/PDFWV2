@@ -61,7 +61,21 @@ namespace PDFWV2.WebRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to &lt;!doctype html&gt;
+        ///&lt;html&gt;
+        ///
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot;&gt;
+        ///    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+        ///    &lt;meta content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0&quot; name=&quot;viewport&quot; /&gt;
+        ///&lt;/head&gt;
+        ///
+        ///&lt;body style=&quot;margin: 0;padding: 0;overflow:hidden;&quot;&gt;
+        ///    &lt;h1 id=&quot;loading&quot;&gt;Loading...&lt;/h1&gt;
+        ///    &lt;div id=&quot;adobe-dc-view&quot;&gt;&lt;/div&gt;
+        ///    &lt;script src=&quot;https://acrobatservices.adobe.com/view-sdk/viewer.js&quot;&gt;&lt;/script&gt;
+        ///    &lt;script type=&quot;text/javascript&quot;&gt;
+        ///     [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string AdobeWeb {
             get {
@@ -92,6 +106,22 @@ namespace PDFWV2.WebRes {
         internal static string Loading {
             get {
                 return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Object.defineProperty(URL.prototype, &apos;origin&apos;, {
+        ///    get: ()=&gt; {
+        ///        console.log(&apos;URL.origin getter was called, returning &quot;null&quot;&apos;);
+        ///        return &quot;null&quot;;
+        ///    },
+        ///    set: ()=&gt; { },
+        ///    configurable: false
+        ///});.
+        /// </summary>
+        internal static string PDFJSHook {
+            get {
+                return ResourceManager.GetString("PDFJSHook", resourceCulture);
             }
         }
     }

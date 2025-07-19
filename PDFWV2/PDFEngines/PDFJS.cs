@@ -147,7 +147,7 @@ namespace PDFWV2.PDFEngines
         /// <inheritdoc />
         protected override PDFWindow ViewFileEngine(string Path)
         {
-            return new PDFWindow(new PDFJSController(FolderPath));
+            return new PDFWindow(new PDFJSController(FolderPath, new System.Uri(Path).AbsoluteUri));
         }
 
         /// <inheritdoc />
@@ -159,7 +159,7 @@ namespace PDFWV2.PDFEngines
         /// <inheritdoc />
         public override PDFWindow ViewURL(string URL)
         {
-            return new PDFWindow(new PDFJSController(FolderPath));
+            return new PDFWindow(new PDFJSController(FolderPath, URL));
         }
 
         /// <inheritdoc />

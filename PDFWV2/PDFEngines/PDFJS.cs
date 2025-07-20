@@ -158,6 +158,13 @@ namespace PDFWV2.PDFEngines
                     return UpdateResult.NoUpdate;
                 }
             }
+            else if(Latest.ErrorMsg.Contains("limit"))
+            {
+                // Exceed GitHub 60 request per hour limit
+                // I don't want to use my GitHub Token here
+                // TODO: use hidden webview2 open release page and do manual parse
+
+            }
             else
             {
                 return UpdateResult.NetError;

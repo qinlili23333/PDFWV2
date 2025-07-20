@@ -69,7 +69,7 @@ namespace PDFWV2
         /// Throws exception if it's not a PDF file.
         /// </summary>
         /// <param name="Path">Path to PDF file</param>
-        public PDFWindow ViewFile(string Path)
+        public virtual PDFWindow ViewFile(string Path)
         {
             // Check whether it's PDF file first to avoid suspecious attacks
             if (PDFWV2InstanceManager.Options.SecurityHardenLevel == SecurityLevel.None || Utils.PDFHelper.IsPdf(Path))

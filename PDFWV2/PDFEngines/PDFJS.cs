@@ -14,6 +14,10 @@ namespace PDFWV2.PDFEngines
 
         internal TaskCompletionSource<bool> ReadyTCS = new();
 
+        private bool FallbackMode = false;
+
+        private Edge FallbackEngine;
+
         public PDFJS(string ModuleFolder) : base(ModuleFolder)
         {
             FolderPath = ModuleFolder + "\\PDFJS";
@@ -48,8 +52,15 @@ namespace PDFWV2.PDFEngines
                 UpdateResult Result = await Update();
                 if (Version.Version == 0 && (Result == UpdateResult.FileError || Result == UpdateResult.NetError))
                 {
-                    // TODO: trigger fallback
-
+                    if (PDFWV2InstanceManager.Options.FallbackToEdge)
+                    {
+                        FallbackMode = true;
+                        FallbackEngine = new Edge();
+                    }
+                    else
+                    {
+                        throw new Exception("Fail to load PDF.JS dist.");
+                    }
                 }
                 else
                 {
@@ -158,12 +169,12 @@ namespace PDFWV2.PDFEngines
                     return UpdateResult.NoUpdate;
                 }
             }
-            else if(Latest.ErrorMsg.Contains("limit"))
+            else if (Latest.ErrorMsg.Contains("limit"))
             {
                 // Exceed GitHub 60 request per hour limit
                 // I don't want to use my GitHub Token here
                 // TODO: use hidden webview2 open release page and do manual parse
-
+                return UpdateResult.NetError;
             }
             else
             {
@@ -171,21 +182,42 @@ namespace PDFWV2.PDFEngines
             }
         }
 
+
+        public override PDFWindow ViewFile(string Path)
+        {
+            if (FallbackMode)
+            {
+                FallbackEngine.ViewFile(Path);
+            }
+            return base.ViewFile(Path);
+        }
         /// <inheritdoc />
         protected override PDFWindow ViewFileEngine(string Path)
         {
+            if (FallbackMode)
+            {
+                return new PDFWindow(new EdgeController(new System.Uri(Path).AbsoluteUri));
+            }
             return new PDFWindow(new PDFJSController(FolderPath, Path));
         }
 
         /// <inheritdoc />
         public override PDFWindow ViewStream(Stream Stream)
         {
+            if (FallbackMode)
+            {
+                FallbackEngine.ViewStream(Stream);
+            }
             return new PDFWindow(new PDFJSController(FolderPath));
         }
 
         /// <inheritdoc />
         public override PDFWindow ViewURL(string URL)
         {
+            if (FallbackMode)
+            {
+                FallbackEngine.ViewURL(URL);
+            }
             return new PDFWindow(new PDFJSController(FolderPath, URL));
         }
 

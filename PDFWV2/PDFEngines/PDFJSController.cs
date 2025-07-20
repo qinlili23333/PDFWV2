@@ -9,6 +9,7 @@ namespace PDFWV2.PDFEngines
         private string Link = string.Empty;
         private string FilePath = string.Empty;
         private Stream? DocumentStream;
+        private PDFJS Engine = (PDFJS)PDFWV2InstanceManager.ActiveEngines[Engines.PDFJS];
 
         internal PDFJSController(string Folder)
         {
@@ -38,6 +39,11 @@ namespace PDFWV2.PDFEngines
         internal override async void OnWebViewReady(PDFWindow Window)
         {
             PDFWindow = Window;
+            if (!Engine.IsReady())
+            {
+                PDFWindow.WebView.CoreWebView2.NavigateToString(WebRes.WebRes.Loading);
+                await Engine.ReadyTCS.Task;
+            }
             await PDFWindow.WebView.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync(WebRes.WebRes.PDFJSHook);
             PDFWindow.WebView.CoreWebView2.SetVirtualHostNameToFolderMapping(PDFWV2InstanceManager.Options.LocalDomain, FolderPath, CoreWebView2HostResourceAccessKind.Deny);
             if (Link != string.Empty)

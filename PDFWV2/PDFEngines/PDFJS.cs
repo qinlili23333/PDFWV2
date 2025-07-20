@@ -12,12 +12,17 @@ namespace PDFWV2.PDFEngines
 
         private EngineVersion Version;
 
+        internal TaskCompletionSource<bool> ReadyTCS = new();
+
         public PDFJS(string ModuleFolder) : base(ModuleFolder)
         {
             FolderPath = ModuleFolder + "\\PDFJS";
             if (!Directory.Exists(FolderPath))
             {
                 Directory.CreateDirectory(FolderPath);
+            }
+            if (!File.Exists(FolderPath + "\\version.json"))
+            {
                 using FileStream createStream = File.Create(FolderPath + "\\version.json");
                 {
                     JsonSerializer.Serialize(createStream, new EngineVersion() { Name = "pdfjs" });
@@ -28,13 +33,28 @@ namespace PDFWV2.PDFEngines
             {
                 Version = JsonSerializer.Deserialize<EngineVersion>(File.ReadAllText(FolderPath + "\\version.json")) ?? new EngineVersion();
             }
+            InitAsync();
+        }
+
+
+        private async Task InitAsync()
+        {
             if (File.Exists(FolderPath + "\\update.zip"))
             {
-                InstallPkg();
+                await InstallPkg();
             }
             else if (Version.Version == 0 || (PDFWV2InstanceManager.Options.EnableUpdate != UpdateMode.Never && Version.UpdateTime != DateTime.Now.Date.ToLongDateString()))
             {
-                Update();
+                UpdateResult Result = await Update();
+                if (Version.Version == 0 && (Result == UpdateResult.FileError || Result == UpdateResult.NetError))
+                {
+                    // TODO: trigger fallback
+
+                }
+                else
+                {
+                    ReadyTCS.TrySetResult(true);
+                }
             }
         }
 

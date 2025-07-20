@@ -1,6 +1,5 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using System.IO;
-using System.Windows.Documents;
 
 namespace PDFWV2.PDFEngines
 {
@@ -9,6 +8,7 @@ namespace PDFWV2.PDFEngines
         private string FolderPath = string.Empty;
         private string Link = string.Empty;
         private string FilePath = string.Empty;
+        private Stream? DocumentStream;
 
         internal PDFJSController(string Folder)
         {
@@ -22,7 +22,8 @@ namespace PDFWV2.PDFEngines
             {
                 Link = URL;
             }
-            else{
+            else
+            {
                 FilePath = URL;
             }
         }
@@ -31,6 +32,7 @@ namespace PDFWV2.PDFEngines
 
         internal override void Dispose()
         {
+            DocumentStream?.Dispose();
         }
 
         internal override async void OnWebViewReady(PDFWindow Window)
@@ -42,13 +44,10 @@ namespace PDFWV2.PDFEngines
             {
                 PDFWindow.WebView.CoreWebView2.Navigate($"https://{PDFWV2InstanceManager.Options.LocalDomain}/web/viewer.html?file={Link}");
             }
-            else
+            else if (FilePath != string.Empty)
             {
-                FileStream ReadStream = File.OpenRead(FilePath);
-                MemoryStream MemStream = new();
-                await ReadStream.CopyToAsync(MemStream);
-                ReadStream.Close();
-                CoreWebView2WebResourceResponse Resp = PDFWindow.WebView.CoreWebView2.Environment.CreateWebResourceResponse(MemStream, 200, "OK", "Content-Type: application/pdf");
+                DocumentStream = File.OpenRead(FilePath);
+                CoreWebView2WebResourceResponse Resp = PDFWindow.WebView.CoreWebView2.Environment.CreateWebResourceResponse(DocumentStream, 200, "OK", "Content-Type: application/pdf");
                 PDFWindow.WebView.CoreWebView2.AddWebResourceRequestedFilter(
       "https://pdf/Stream.pdf", CoreWebView2WebResourceContext.All);
                 PDFWindow.WebView.CoreWebView2.WebResourceRequested += delegate (

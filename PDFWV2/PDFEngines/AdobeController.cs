@@ -75,12 +75,9 @@ namespace PDFWV2.PDFEngines
         /// <summary>
         /// Read file to memory stream
         /// </summary>
-        internal async void PrepareFileStream()
+        internal void PrepareFileStream()
         {
-            FileStream ReadStream = File.OpenRead(DocumentPath);
-            DocumentStream = new MemoryStream();
-            await ReadStream.CopyToAsync(DocumentStream);
-            ReadStream.Close();
+            DocumentStream = File.OpenRead(DocumentPath);
             FulfillStream(DocumentStream);
         }
 

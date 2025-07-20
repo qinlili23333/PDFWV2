@@ -34,7 +34,11 @@
         /// <summary>
         /// Adobe PDF Embedded API, no download required but always require Internet connection, close sourced with data collection
         /// </summary>
-        Adobe
+        Adobe,
+        /// <summary>
+        /// MuPDF.js with simple viewer, lightning fast especially with large files, but very basic features
+        /// </summary>
+        MuPDF
     }
     /// <summary>
     /// How many security harden techniques should be applied

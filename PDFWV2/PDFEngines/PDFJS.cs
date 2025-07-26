@@ -56,11 +56,13 @@ namespace PDFWV2.PDFEngines
                     {
                         FallbackMode = true;
                         FallbackEngine = new Edge();
+                        PDFWV2InstanceManager.ActiveEngines[Engines.EDGE]= FallbackEngine;
                     }
                     else
                     {
                         throw new Exception("Fail to load PDF.JS dist.");
                     }
+                    ReadyTCS.TrySetResult(false);
                 }
                 else
                 {

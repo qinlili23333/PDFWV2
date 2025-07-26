@@ -14,6 +14,7 @@ namespace PDFWV2
         {
             InitializeComponent();
             EngineController = Controller;
+            Show();
             Init();
         }
 

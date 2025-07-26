@@ -42,7 +42,29 @@ namespace PDFWV2.PDFEngines
             if (!Engine.IsReady())
             {
                 PDFWindow.WebView.CoreWebView2.NavigateToString(WebRes.WebRes.Loading);
-                await Engine.ReadyTCS.Task;
+                if (!await Engine.ReadyTCS.Task) {
+                    // Fail to load
+                    if (PDFWV2InstanceManager.Options.FallbackToEdge)
+                    {
+                        if (Link != string.Empty)
+                        {
+                            PDFWV2InstanceManager.ActiveEngines[Engines.EDGE].ViewURL(Link);
+                        }
+                        else if (FilePath != string.Empty)
+                        {
+                            PDFWV2InstanceManager.ActiveEngines[Engines.EDGE].ViewFile(FilePath);
+                        }else if(DocumentStream!=null)
+                        {
+                            PDFWV2InstanceManager.ActiveEngines[Engines.EDGE].ViewStream(DocumentStream);
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Fail to load PDF.JS dist.");
+                    }
+                    Window.Close();
+                    return;
+                }
             }
             await PDFWindow.WebView.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync(WebRes.WebRes.PDFJSHook);
             PDFWindow.WebView.CoreWebView2.SetVirtualHostNameToFolderMapping(PDFWV2InstanceManager.Options.LocalDomain, FolderPath, CoreWebView2HostResourceAccessKind.Deny);

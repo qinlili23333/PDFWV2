@@ -70,11 +70,11 @@ namespace LitePDF
             }
             if (Type.SelectedIndex == 0)
             {
-                Engine.ViewFile(Path.Text).Show();
+                Engine.ViewFile(Path.Text);
             }
             else
             {
-                Engine.ViewURL(Path.Text).Show();
+                Engine.ViewURL(Path.Text);
 
             }
 

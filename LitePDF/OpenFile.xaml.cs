@@ -54,7 +54,8 @@ namespace LitePDF
             {
                 DebugTool = DevTool.IsChecked ?? false,
                 DefaultEngine = Engines,
-                NetworkRequestIsolation = NetworkRequestIsolation.IsChecked ?? false
+                NetworkRequestIsolation = NetworkRequestIsolation.IsChecked ?? false,
+                SecurityHardenLevel = SecurityLevel.Enhanced
             };
             PDF = await PDFWV2Instance.GetInstance(Options);
             DevTool.IsEnabled = false;

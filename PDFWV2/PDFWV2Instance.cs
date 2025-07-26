@@ -26,6 +26,10 @@ namespace PDFWV2
         {
             PDFWV2InstanceManager.Instance = new PDFWV2Instance();
             await InitAppWebView(PDFWV2InstanceManager.Options.ModuleFolder);
+            if (PDFWV2InstanceManager.Options.SecurityHardenLevel == SecurityLevel.Enhanced)
+            {
+                Utils.Security.EnhancedHarden();
+            }
             return PDFWV2InstanceManager.Instance;
         }
 

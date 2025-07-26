@@ -10,10 +10,18 @@ namespace PDFWV2.PDFEngines
         private string FilePath = string.Empty;
         private Stream? DocumentStream;
         private PDFJS Engine = (PDFJS)PDFWV2InstanceManager.ActiveEngines[Engines.PDFJS];
+        private bool PreloadMode = false;
 
         internal PDFJSController(string Folder)
         {
             FolderPath = Folder;
+            PreloadMode = true;
+        }
+
+        internal PDFJSController(string Folder, Stream ContentStream)
+        {
+            FolderPath = Folder;
+            DocumentStream = ContentStream;
         }
 
         internal PDFJSController(string Folder, string URL)
@@ -36,13 +44,49 @@ namespace PDFWV2.PDFEngines
             DocumentStream?.Dispose();
         }
 
+        /// <summary>
+        /// Fulfill stream after controller loaded
+        /// </summary>
+        /// <param name="Stream">File stream</param>
+        internal void FulfillStream(Stream Stream)
+        {
+            if (PreloadMode)
+            {
+                DocumentStream = Stream;
+                PreloadMode = false;
+                LoadStream();
+            }
+            else
+            {
+                throw new InvalidOperationException("You cannot fulfill stream to a loaded controller!");
+            }
+        }
+
+        internal void LoadStream()
+        {
+            CoreWebView2WebResourceResponse Resp = PDFWindow.WebView.CoreWebView2.Environment.CreateWebResourceResponse(DocumentStream, 200, "OK", "Content-Type: application/pdf");
+            PDFWindow.WebView.CoreWebView2.AddWebResourceRequestedFilter(
+  "https://pdf/Stream.pdf", CoreWebView2WebResourceContext.All);
+            PDFWindow.WebView.CoreWebView2.WebResourceRequested += delegate (
+               object? sender, CoreWebView2WebResourceRequestedEventArgs args)
+            {
+                // WebResourceRequested will not trigger with VirtualHostName, have to use different one
+                if (args.Request.Uri == $"https://pdf/Stream.pdf")
+                {
+                    args.Response = Resp;
+                }
+            };
+            PDFWindow.WebView.CoreWebView2.Navigate($"https://{PDFWV2InstanceManager.Options.LocalDomain}/web/viewer.html?file=https://pdf/Stream.pdf");
+        }
+
         internal override async void OnWebViewReady(PDFWindow Window)
         {
             PDFWindow = Window;
             if (!Engine.IsReady())
             {
                 PDFWindow.WebView.CoreWebView2.NavigateToString(WebRes.WebRes.Loading);
-                if (!await Engine.ReadyTCS.Task) {
+                if (!await Engine.ReadyTCS.Task)
+                {
                     // Fail to load
                     if (PDFWV2InstanceManager.Options.FallbackToEdge)
                     {
@@ -53,7 +97,8 @@ namespace PDFWV2.PDFEngines
                         else if (FilePath != string.Empty)
                         {
                             PDFWV2InstanceManager.ActiveEngines[Engines.EDGE].ViewFile(FilePath);
-                        }else if(DocumentStream!=null)
+                        }
+                        else if (DocumentStream != null)
                         {
                             PDFWV2InstanceManager.ActiveEngines[Engines.EDGE].ViewStream(DocumentStream);
                         }
@@ -75,19 +120,15 @@ namespace PDFWV2.PDFEngines
             else if (FilePath != string.Empty)
             {
                 DocumentStream = File.OpenRead(FilePath);
-                CoreWebView2WebResourceResponse Resp = PDFWindow.WebView.CoreWebView2.Environment.CreateWebResourceResponse(DocumentStream, 200, "OK", "Content-Type: application/pdf");
-                PDFWindow.WebView.CoreWebView2.AddWebResourceRequestedFilter(
-      "https://pdf/Stream.pdf", CoreWebView2WebResourceContext.All);
-                PDFWindow.WebView.CoreWebView2.WebResourceRequested += delegate (
-                   object? sender, CoreWebView2WebResourceRequestedEventArgs args)
-                {
-                    // WebResourceRequested will not trigger with VirtualHostName, have to use different one
-                    if (args.Request.Uri == $"https://pdf/Stream.pdf")
-                    {
-                        args.Response = Resp;
-                    }
-                };
-                PDFWindow.WebView.CoreWebView2.Navigate($"https://{PDFWV2InstanceManager.Options.LocalDomain}/web/viewer.html?file=https://pdf/Stream.pdf");
+                LoadStream();
+            }
+            else if (DocumentStream != null)
+            {
+                LoadStream();
+            }
+            else
+            {
+                PDFWindow.WebView.CoreWebView2.NavigateToString(WebRes.WebRes.Loading);
             }
         }
     }

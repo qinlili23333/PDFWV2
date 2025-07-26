@@ -56,7 +56,7 @@ namespace PDFWV2.PDFEngines
                     {
                         FallbackMode = true;
                         FallbackEngine = new Edge();
-                        PDFWV2InstanceManager.ActiveEngines[Engines.EDGE]= FallbackEngine;
+                        PDFWV2InstanceManager.ActiveEngines[Engines.EDGE] = FallbackEngine;
                     }
                     else
                     {
@@ -210,7 +210,7 @@ namespace PDFWV2.PDFEngines
             {
                 FallbackEngine.ViewStream(Stream);
             }
-            return new PDFWindow(new PDFJSController(FolderPath));
+            return new PDFWindow(new PDFJSController(FolderPath, Stream));
         }
 
         /// <inheritdoc />
@@ -220,7 +220,22 @@ namespace PDFWV2.PDFEngines
             {
                 FallbackEngine.ViewURL(URL);
             }
-            return new PDFWindow(new PDFJSController(FolderPath, URL));
+            if (PDFWV2InstanceManager.Options.NetworkRequestIsolation)
+            {
+                var Controller = new PDFJSController(FolderPath);
+                GetFileAndFulfill(Controller, URL);
+                return new PDFWindow(Controller);
+            }
+            else
+            {
+                return new PDFWindow(new PDFJSController(FolderPath, URL));
+            }
+        }
+
+        private async void GetFileAndFulfill(PDFJSController Controller, string URL)
+        {
+            Stream ContentStream = await Network.GetHttpStream(URL);
+            Controller.FulfillStream(ContentStream);
         }
 
         /// <inheritdoc />

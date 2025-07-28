@@ -21,13 +21,27 @@ namespace PDFWV2.Utils
         /// </summary>
         internal static void RegistryCheck()
         {
-            if ((string?)Registry.GetValue("HKEY_CURRENT_USER\\Software\\Policies\\Microsoft\\Edge\\WebView2\\AdditionalBrowserArguments", System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName, string.Empty) != string.Empty)
+            try
             {
-                Registry.SetValue("HKEY_CURRENT_USER\\Software\\Policies\\Microsoft\\Edge\\WebView2\\AdditionalBrowserArguments", System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName, string.Empty);
+                if ((string?)Registry.GetValue("HKEY_CURRENT_USER\\Software\\Policies\\Microsoft\\Edge\\WebView2\\AdditionalBrowserArguments", System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName, string.Empty) != string.Empty)
+                {
+                    Registry.SetValue("HKEY_CURRENT_USER\\Software\\Policies\\Microsoft\\Edge\\WebView2\\AdditionalBrowserArguments", System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName, string.Empty);
+                }
             }
-            if ((string?)Registry.GetValue("HKEY_CURRENT_USER\\Software\\Policies\\Microsoft\\Edge\\WebView2\\AdditionalBrowserArguments", "*", string.Empty) != string.Empty)
+            catch (Exception)
             {
-                Registry.SetValue("HKEY_CURRENT_USER\\Software\\Policies\\Microsoft\\Edge\\WebView2\\AdditionalBrowserArguments", "*", string.Empty);
+
+            }
+            try
+            {
+                if ((string?)Registry.GetValue("HKEY_CURRENT_USER\\Software\\Policies\\Microsoft\\Edge\\WebView2\\AdditionalBrowserArguments", "*", string.Empty) != string.Empty)
+                {
+                    Registry.SetValue("HKEY_CURRENT_USER\\Software\\Policies\\Microsoft\\Edge\\WebView2\\AdditionalBrowserArguments", "*", string.Empty);
+                }
+            }
+            catch (Exception)
+            {
+
             }
         }
 

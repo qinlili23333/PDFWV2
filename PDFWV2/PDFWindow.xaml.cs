@@ -42,6 +42,15 @@ namespace PDFWV2
                 WebView.CoreWebView2.Settings.AreDevToolsEnabled = false;
                 WebView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
             }
+            WebView.CoreWebView2.NewWindowRequested += (a, e) =>
+            {
+                e.Handled = true;
+                ProcessStartInfo startInfo = new(e.Uri)
+                {
+                    UseShellExecute = true
+                };
+                Process.Start(startInfo);
+            };
             WebView.CoreWebView2.NavigationStarting += (a, e) =>
             {
                 if (((PDFWV2InstanceManager.Options?.NetworkRequestIsolation ?? false) || WebView.Source.DnsSafeHost == PDFWV2InstanceManager.Options.LocalDomain) && e.Uri.StartsWith("http") && !(new Uri(e.Uri).DnsSafeHost == PDFWV2InstanceManager.Options.LocalDomain || e.Uri.StartsWith("data")))

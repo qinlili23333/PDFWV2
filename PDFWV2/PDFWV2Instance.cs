@@ -18,6 +18,18 @@ namespace PDFWV2
             Directory.CreateDirectory(PDFWV2InstanceManager.Options.ModuleFolder);
         }
 
+        public static void SetWebView2Instance(CoreWebView2Environment environment)
+        {
+            if (PDFWV2InstanceManager.WebView2Environment == null)
+            {
+                PDFWV2InstanceManager.WebView2Environment = environment;
+            }
+            else
+            {
+                throw new Exception("WebView2 Environment already initialized! You should set it only once and before creating PDFWV2Instance.");
+            }
+        }
+
         /// <summary>
         /// Create a PDFWV2 instance
         /// </summary>
